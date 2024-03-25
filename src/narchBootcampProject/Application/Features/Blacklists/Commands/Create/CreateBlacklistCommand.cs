@@ -3,16 +3,21 @@ using Application.Features.Blacklists.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Blacklists.Constants.BlacklistsOperationClaims;
 
 namespace Application.Features.Blacklists.Commands.Create;
 
-public class CreateBlacklistCommand : IRequest<CreatedBlacklistResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateBlacklistCommand
+    : IRequest<CreatedBlacklistResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
     public Guid ApplicantId { get; set; }
@@ -31,8 +36,11 @@ public class CreateBlacklistCommand : IRequest<CreatedBlacklistResponse>, ISecur
         private readonly IBlacklistRepository _blacklistRepository;
         private readonly BlacklistBusinessRules _blacklistBusinessRules;
 
-        public CreateBlacklistCommandHandler(IMapper mapper, IBlacklistRepository blacklistRepository,
-                                         BlacklistBusinessRules blacklistBusinessRules)
+        public CreateBlacklistCommandHandler(
+            IMapper mapper,
+            IBlacklistRepository blacklistRepository,
+            BlacklistBusinessRules blacklistBusinessRules
+        )
         {
             _mapper = mapper;
             _blacklistRepository = blacklistRepository;

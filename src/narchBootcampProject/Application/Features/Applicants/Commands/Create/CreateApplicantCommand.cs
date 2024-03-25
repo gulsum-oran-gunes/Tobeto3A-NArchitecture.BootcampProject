@@ -3,17 +3,25 @@ using Application.Features.Applicants.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Applicants.Constants.ApplicantsOperationClaims;
 
 namespace Application.Features.Applicants.Commands.Create;
 
-public class CreateApplicantCommand : IRequest<CreatedApplicantResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateApplicantCommand
+    : IRequest<CreatedApplicantResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
+    public string UserName { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
     public string About { get; set; }
 
     public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Create];
@@ -28,8 +36,11 @@ public class CreateApplicantCommand : IRequest<CreatedApplicantResponse>, ISecur
         private readonly IApplicantRepository _applicantRepository;
         private readonly ApplicantBusinessRules _applicantBusinessRules;
 
-        public CreateApplicantCommandHandler(IMapper mapper, IApplicantRepository applicantRepository,
-                                         ApplicantBusinessRules applicantBusinessRules)
+        public CreateApplicantCommandHandler(
+            IMapper mapper,
+            IApplicantRepository applicantRepository,
+            ApplicantBusinessRules applicantBusinessRules
+        )
         {
             _mapper = mapper;
             _applicantRepository = applicantRepository;

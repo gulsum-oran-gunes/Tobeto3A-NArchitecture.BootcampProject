@@ -1,9 +1,9 @@
 using Application.Features.ApplicationEntities.Constants;
 using Application.Services.Repositories;
+using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
-using Domain.Entities;
 
 namespace Application.Features.ApplicationEntities.Rules;
 
@@ -12,7 +12,10 @@ public class ApplicationEntityBusinessRules : BaseBusinessRules
     private readonly IApplicationEntityRepository _applicationEntityRepository;
     private readonly ILocalizationService _localizationService;
 
-    public ApplicationEntityBusinessRules(IApplicationEntityRepository applicationEntityRepository, ILocalizationService localizationService)
+    public ApplicationEntityBusinessRules(
+        IApplicationEntityRepository applicationEntityRepository,
+        ILocalizationService localizationService
+    )
     {
         _applicationEntityRepository = applicationEntityRepository;
         _localizationService = localizationService;
@@ -20,7 +23,10 @@ public class ApplicationEntityBusinessRules : BaseBusinessRules
 
     private async Task throwBusinessException(string messageKey)
     {
-        string message = await _localizationService.GetLocalizedAsync(messageKey, ApplicationEntitiesBusinessMessages.SectionName);
+        string message = await _localizationService.GetLocalizedAsync(
+            messageKey,
+            ApplicationEntitiesBusinessMessages.SectionName
+        );
         throw new BusinessException(message);
     }
 

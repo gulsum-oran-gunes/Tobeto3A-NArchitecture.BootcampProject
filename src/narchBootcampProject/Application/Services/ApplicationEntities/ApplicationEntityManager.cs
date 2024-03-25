@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.ApplicationEntities.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.ApplicationEntities;
 
@@ -12,7 +12,10 @@ public class ApplicationEntityManager : IApplicationEntityService
     private readonly IApplicationEntityRepository _applicationEntityRepository;
     private readonly ApplicationEntityBusinessRules _applicationEntityBusinessRules;
 
-    public ApplicationEntityManager(IApplicationEntityRepository applicationEntityRepository, ApplicationEntityBusinessRules applicationEntityBusinessRules)
+    public ApplicationEntityManager(
+        IApplicationEntityRepository applicationEntityRepository,
+        ApplicationEntityBusinessRules applicationEntityBusinessRules
+    )
     {
         _applicationEntityRepository = applicationEntityRepository;
         _applicationEntityBusinessRules = applicationEntityBusinessRules;
@@ -26,7 +29,13 @@ public class ApplicationEntityManager : IApplicationEntityService
         CancellationToken cancellationToken = default
     )
     {
-        ApplicationEntity? applicationEntity = await _applicationEntityRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        ApplicationEntity? applicationEntity = await _applicationEntityRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return applicationEntity;
     }
 

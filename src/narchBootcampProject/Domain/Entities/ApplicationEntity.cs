@@ -1,11 +1,12 @@
-﻿using NArchitecture.Core.Persistence.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
+
 public class ApplicationEntity : Entity<int>
 {
     public Guid ApplicantId { get; set; }
@@ -17,10 +18,7 @@ public class ApplicationEntity : Entity<int>
 
     public virtual ApplicationState? ApplicationState { get; set; }
 
-    public ApplicationEntity()
-    {
-
-    }
+    public ApplicationEntity() { }
 
     public ApplicationEntity(int id, Guid applicantId, int bootcampId, int applicationStateId)
     {
@@ -28,8 +26,5 @@ public class ApplicationEntity : Entity<int>
         ApplicantId = applicantId;
         BootcampId = bootcampId;
         ApplicationStateId = applicationStateId;
-
-
     }
-
 }

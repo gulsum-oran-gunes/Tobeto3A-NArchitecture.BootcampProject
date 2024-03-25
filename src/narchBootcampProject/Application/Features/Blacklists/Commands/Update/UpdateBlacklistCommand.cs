@@ -3,16 +3,21 @@ using Application.Features.Blacklists.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Blacklists.Constants.BlacklistsOperationClaims;
 
 namespace Application.Features.Blacklists.Commands.Update;
 
-public class UpdateBlacklistCommand : IRequest<UpdatedBlacklistResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateBlacklistCommand
+    : IRequest<UpdatedBlacklistResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
     public Guid ApplicantId { get; set; }
@@ -31,8 +36,11 @@ public class UpdateBlacklistCommand : IRequest<UpdatedBlacklistResponse>, ISecur
         private readonly IBlacklistRepository _blacklistRepository;
         private readonly BlacklistBusinessRules _blacklistBusinessRules;
 
-        public UpdateBlacklistCommandHandler(IMapper mapper, IBlacklistRepository blacklistRepository,
-                                         BlacklistBusinessRules blacklistBusinessRules)
+        public UpdateBlacklistCommandHandler(
+            IMapper mapper,
+            IBlacklistRepository blacklistRepository,
+            BlacklistBusinessRules blacklistBusinessRules
+        )
         {
             _mapper = mapper;
             _blacklistRepository = blacklistRepository;
@@ -41,7 +49,10 @@ public class UpdateBlacklistCommand : IRequest<UpdatedBlacklistResponse>, ISecur
 
         public async Task<UpdatedBlacklistResponse> Handle(UpdateBlacklistCommand request, CancellationToken cancellationToken)
         {
-            Blacklist? blacklist = await _blacklistRepository.GetAsync(predicate: b => b.Id == request.Id, cancellationToken: cancellationToken);
+            Blacklist? blacklist = await _blacklistRepository.GetAsync(
+                predicate: b => b.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _blacklistBusinessRules.BlacklistShouldExistWhenSelected(blacklist);
             blacklist = _mapper.Map(request, blacklist);
 

@@ -4,8 +4,8 @@ using Application.Features.Blacklists.Commands.Update;
 using Application.Features.Blacklists.Queries.GetById;
 using Application.Features.Blacklists.Queries.GetList;
 using AutoMapper;
-using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
+using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Features.Blacklists.Profiles;

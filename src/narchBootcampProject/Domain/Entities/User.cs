@@ -15,6 +15,7 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
         OtpAuthenticators = new HashSet<OtpAuthenticator>();
         EmailAuthenticators = new HashSet<EmailAuthenticator>();
     }
+
     public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; } = default!;
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = default!;
     public virtual ICollection<OtpAuthenticator> OtpAuthenticators { get; set; } = default!;

@@ -3,9 +3,9 @@ using Application.Features.ApplicationEntities.Commands.Delete;
 using Application.Features.ApplicationEntities.Commands.Update;
 using Application.Features.ApplicationEntities.Queries.GetById;
 using Application.Features.ApplicationEntities.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
