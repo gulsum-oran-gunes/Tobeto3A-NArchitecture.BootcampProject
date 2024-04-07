@@ -6,7 +6,7 @@ public class CreateBlacklistCommandValidator : AbstractValidator<CreateBlacklist
 {
     public CreateBlacklistCommandValidator()
     {
-        RuleFor(c => c.Id).NotEmpty();
+        
         RuleFor(c => c.ApplicantId).NotEmpty();
         RuleFor(c => c.Reason).NotEmpty();
         RuleFor(c => c.Date).NotEmpty();

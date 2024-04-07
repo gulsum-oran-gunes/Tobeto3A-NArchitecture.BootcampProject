@@ -3,17 +3,17 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using System.ComponentModel;
 
 namespace Infrastructure.Adapters.ImageService;
 
 public class CloudinaryImageServiceAdapter : ImageServiceBase
 {
     private readonly Cloudinary _cloudinary;
-
     public CloudinaryImageServiceAdapter(IConfiguration configuration)
     {
-        Account? account = configuration.GetSection("CloudinaryAccount").Get<Account>();
-        _cloudinary = new Cloudinary(account);
+        var connectionString = configuration.GetValue<string>("CloudinaryAccount:ConnectionString");
+        _cloudinary = new Cloudinary(connectionString);
     }
 
     public override async Task<string> UploadAsync(IFormFile formFile)

@@ -8,6 +8,7 @@ using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
+using NArchitecture.Core.Security.Hashing;
 using static Application.Features.Applicants.Constants.ApplicantsOperationClaims;
 
 namespace Application.Features.Applicants.Commands.Create;
@@ -22,7 +23,12 @@ public class CreateApplicantCommand
     public string UserName { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string Email { get; set; }
+    public DateTime DateOfBirth { get; set; }
+    public string NationalIdentity { get; set; }
     public string About { get; set; }
+    public string Password { get; set; }
+
 
     public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Create];
 
@@ -50,6 +56,18 @@ public class CreateApplicantCommand
         public async Task<CreatedApplicantResponse> Handle(CreateApplicantCommand request, CancellationToken cancellationToken)
         {
             Applicant applicant = _mapper.Map<Applicant>(request);
+            HashingHelper.CreatePasswordHash(
+               request.Password,
+               passwordHash: out byte[] passwordHash,
+               passwordSalt: out byte[] passwordSalt
+           );
+            User newUser =
+                new()
+                {
+                    Email = request.Email,
+                    PasswordHash = passwordHash,
+                    PasswordSalt = passwordSalt,
+                };
 
             await _applicantRepository.AddAsync(applicant);
 

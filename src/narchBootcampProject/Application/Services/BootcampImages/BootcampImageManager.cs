@@ -1,7 +1,9 @@
 using System.Linq.Expressions;
 using Application.Features.BootcampImages.Rules;
+using Application.Services.ImageService;
 using Application.Services.Repositories;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.Persistence.Paging;
 
@@ -11,76 +13,48 @@ public class BootcampImageManager : IBootcampImageService
 {
     private readonly IBootcampImageRepository _bootcampImageRepository;
     private readonly BootcampImageBusinessRules _bootcampImageBusinessRules;
+    private readonly ImageServiceBase _imageService;
 
-    public BootcampImageManager(
-        IBootcampImageRepository bootcampImageRepository,
-        BootcampImageBusinessRules bootcampImageBusinessRules
-    )
+    public BootcampImageManager(IBootcampImageRepository bootcampImageRepository, BootcampImageBusinessRules bootcampImageBusinessRules, ImageServiceBase imageService)
     {
         _bootcampImageRepository = bootcampImageRepository;
         _bootcampImageBusinessRules = bootcampImageBusinessRules;
+        _imageService = imageService;
     }
 
-    public async Task<BootcampImage?> GetAsync(
-        Expression<Func<BootcampImage, bool>> predicate,
-        Func<IQueryable<BootcampImage>, IIncludableQueryable<BootcampImage, object>>? include = null,
-        bool withDeleted = false,
-        bool enableTracking = true,
-        CancellationToken cancellationToken = default
-    )
+    public async Task<List<BootcampImage>> GetList()
     {
-        BootcampImage? bootcampImage = await _bootcampImageRepository.GetAsync(
-            predicate,
-            include,
-            withDeleted,
-            enableTracking,
-            cancellationToken
-        );
-        return bootcampImage;
+        throw new NotImplementedException();
     }
 
-    public async Task<IPaginate<BootcampImage>?> GetListAsync(
-        Expression<Func<BootcampImage, bool>>? predicate = null,
-        Func<IQueryable<BootcampImage>, IOrderedQueryable<BootcampImage>>? orderBy = null,
-        Func<IQueryable<BootcampImage>, IIncludableQueryable<BootcampImage, object>>? include = null,
-        int index = 0,
-        int size = 10,
-        bool withDeleted = false,
-        bool enableTracking = true,
-        CancellationToken cancellationToken = default
-    )
+    public Task<BootcampImage> Get(Guid id)
     {
-        IPaginate<BootcampImage> bootcampImageList = await _bootcampImageRepository.GetListAsync(
-            predicate,
-            orderBy,
-            include,
-            index,
-            size,
-            withDeleted,
-            enableTracking,
-            cancellationToken
-        );
-        return bootcampImageList;
+        throw new NotImplementedException();
     }
 
-    public async Task<BootcampImage> AddAsync(BootcampImage bootcampImage)
+    public async Task<BootcampImage> Add(IFormFile file, BootcampImageRequest request)
     {
-        BootcampImage addedBootcampImage = await _bootcampImageRepository.AddAsync(bootcampImage);
-
-        return addedBootcampImage;
+        BootcampImage bootcampImage = new BootcampImage()
+        {
+            BootcampId = request.BootcampId,
+            ImagePath = request.ImagePath,
+        };
+        bootcampImage.ImagePath = await _imageService.UploadAsync(file);
+        return await _bootcampImageRepository.AddAsync(bootcampImage);
     }
 
-    public async Task<BootcampImage> UpdateAsync(BootcampImage bootcampImage)
+    public Task<BootcampImage> Update(IFormFile file, BootcampImage BootcampImage)
     {
-        BootcampImage updatedBootcampImage = await _bootcampImageRepository.UpdateAsync(bootcampImage);
-
-        return updatedBootcampImage;
+        throw new NotImplementedException();
     }
 
-    public async Task<BootcampImage> DeleteAsync(BootcampImage bootcampImage, bool permanent = false)
+    public Task<BootcampImage> Delete(BootcampImage BootcampImage)
     {
-        BootcampImage deletedBootcampImage = await _bootcampImageRepository.DeleteAsync(bootcampImage);
+        throw new NotImplementedException();
+    }
 
-        return deletedBootcampImage;
+    public Task<List<BootcampImage>> GetImagesByBootcampId(Guid id)
+    {
+        throw new NotImplementedException();
     }
 }
