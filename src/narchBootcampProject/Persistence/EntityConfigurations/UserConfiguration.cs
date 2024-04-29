@@ -56,7 +56,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                     NationalIdentity = "123456",
                     DateOfBirth = DateTime.Now,
                     Id = AdminId,
-                    Email = "gulsum.oran@hotmail.com",
+                    Email = "admin@mail",
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt
                 };
