@@ -17,6 +17,6 @@ public class BootcampStateConfiguration : IEntityTypeConfiguration<BootcampState
         builder.Property(bs => bs.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasMany(x => x.Bootcamps);
-        //builder.HasQueryFilter(bs => !bs.DeletedDate.HasValue);
+        builder.HasQueryFilter(bs => !bs.DeletedDate.HasValue);
     }
 }

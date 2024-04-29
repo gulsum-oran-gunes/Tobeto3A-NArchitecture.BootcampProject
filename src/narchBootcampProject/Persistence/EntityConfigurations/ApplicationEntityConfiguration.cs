@@ -22,6 +22,6 @@ public class ApplicationEntityConfiguration : IEntityTypeConfiguration<Applicati
         builder.HasOne(x => x.Applicant);
         builder.HasOne(x => x.ApplicationState);
 
-        //builder.HasQueryFilter(ae => !ae.DeletedDate.HasValue);
+        builder.HasQueryFilter(ae => !ae.DeletedDate.HasValue);
     }
 }

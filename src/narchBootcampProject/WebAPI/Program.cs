@@ -107,9 +107,13 @@ const string webApiConfigurationSection = "WebAPIConfiguration";
 WebApiConfiguration webApiConfiguration =
     app.Configuration.GetSection(webApiConfigurationSection).Get<WebApiConfiguration>()
     ?? throw new InvalidOperationException($"\"{webApiConfigurationSection}\" section cannot found in configuration.");
-app.UseCors(opt => opt.WithOrigins(webApiConfiguration.AllowedOrigins)
-.WithOrigins("http://localhost:4200", "http://localhost:5278")
-.AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+app.UseCors(opt =>
+    opt.WithOrigins(webApiConfiguration.AllowedOrigins)
+        .WithOrigins("http://localhost:4200", "http://localhost:5278")
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials()
+);
 
 app.UseResponseLocalization();
 

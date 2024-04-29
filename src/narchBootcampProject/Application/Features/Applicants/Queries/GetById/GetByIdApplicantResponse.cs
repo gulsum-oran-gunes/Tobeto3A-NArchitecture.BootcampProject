@@ -12,5 +12,4 @@ public class GetByIdApplicantResponse : IResponse
     public DateTime DateOfBirth { get; set; }
     public string NationalIdentity { get; set; }
     public string About { get; set; }
-  
 }

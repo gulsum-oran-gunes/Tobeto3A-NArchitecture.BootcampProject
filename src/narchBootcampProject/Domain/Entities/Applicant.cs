@@ -13,10 +13,12 @@ public class Applicant : User
     public string About { get; set; }
 
     public ICollection<ApplicationEntity> ApplicationEntities { get; set; }
+    public ICollection<Quiz> Quizzes { get; set; }
 
     public Applicant()
     {
         ApplicationEntities = new HashSet<ApplicationEntity>();
+        Quizzes = new HashSet<Quiz>();
     }
 
     public Applicant(string about)

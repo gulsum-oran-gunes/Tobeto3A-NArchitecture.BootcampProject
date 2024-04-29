@@ -10,6 +10,10 @@ using Application.Services.Bootcamps;
 using Application.Services.BootcampStates;
 using Application.Services.Employees;
 using Application.Services.Instructors;
+using Application.Services.Questions;
+using Application.Services.QuizQuestions;
+using Application.Services.Quizs;
+using Application.Services.Results;
 using Application.Services.UsersService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -77,6 +81,12 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IBootcampStateService, BootcampStateManager>();
         services.AddScoped<IEmployeeService, EmployeeManager>();
         services.AddScoped<IInstructorService, InstructorManager>();
+        services.AddScoped<IQuizService, QuizManager>();
+        services.AddScoped<IQuestionService, QuestionManager>();
+        services.AddScoped<IQuestionService, QuestionManager>();
+        services.AddScoped<IQuizService, QuizManager>();
+        services.AddScoped<IQuizQuestionService, QuizQuestionManager>();
+        services.AddScoped<IResultService, ResultManager>();
         return services;
     }
 

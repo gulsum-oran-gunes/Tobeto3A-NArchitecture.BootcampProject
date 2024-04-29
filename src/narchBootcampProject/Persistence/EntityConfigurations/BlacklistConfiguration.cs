@@ -19,6 +19,6 @@ public class BlacklistConfiguration : IEntityTypeConfiguration<Blacklist>
         builder.Property(b => b.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasOne(x => x.Applicant);
-        //builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+        builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
     }
 }

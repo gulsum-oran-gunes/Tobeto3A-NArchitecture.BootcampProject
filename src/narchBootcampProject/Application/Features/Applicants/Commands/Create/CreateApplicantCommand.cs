@@ -24,11 +24,10 @@ public class CreateApplicantCommand
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
+    public string Password { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string NationalIdentity { get; set; }
     public string About { get; set; }
-    public string Password { get; set; }
-
 
     public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Create];
 
@@ -57,10 +56,10 @@ public class CreateApplicantCommand
         {
             Applicant applicant = _mapper.Map<Applicant>(request);
             HashingHelper.CreatePasswordHash(
-               request.Password,
-               passwordHash: out byte[] passwordHash,
-               passwordSalt: out byte[] passwordSalt
-           );
+                request.Password,
+                passwordHash: out byte[] passwordHash,
+                passwordSalt: out byte[] passwordSalt
+            );
             User newUser =
                 new()
                 {

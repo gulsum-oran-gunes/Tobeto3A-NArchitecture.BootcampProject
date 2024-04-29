@@ -15,7 +15,11 @@ public class BootcampImageManager : IBootcampImageService
     private readonly BootcampImageBusinessRules _bootcampImageBusinessRules;
     private readonly ImageServiceBase _imageService;
 
-    public BootcampImageManager(IBootcampImageRepository bootcampImageRepository, BootcampImageBusinessRules bootcampImageBusinessRules, ImageServiceBase imageService)
+    public BootcampImageManager(
+        IBootcampImageRepository bootcampImageRepository,
+        BootcampImageBusinessRules bootcampImageBusinessRules,
+        ImageServiceBase imageService
+    )
     {
         _bootcampImageRepository = bootcampImageRepository;
         _bootcampImageBusinessRules = bootcampImageBusinessRules;
@@ -34,11 +38,7 @@ public class BootcampImageManager : IBootcampImageService
 
     public async Task<BootcampImage> Add(IFormFile file, BootcampImageRequest request)
     {
-        BootcampImage bootcampImage = new BootcampImage()
-        {
-            BootcampId = request.BootcampId,
-            ImagePath = request.ImagePath,
-        };
+        BootcampImage bootcampImage = new BootcampImage() { BootcampId = request.BootcampId, ImagePath = request.ImagePath, };
         bootcampImage.ImagePath = await _imageService.UploadAsync(file);
         return await _bootcampImageRepository.AddAsync(bootcampImage);
     }

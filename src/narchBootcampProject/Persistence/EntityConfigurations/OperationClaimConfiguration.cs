@@ -9,6 +9,10 @@ using Application.Features.BootcampStates.Constants;
 using Application.Features.Employees.Constants;
 using Application.Features.Instructors.Constants;
 using Application.Features.OperationClaims.Constants;
+using Application.Features.Questions.Constants;
+using Application.Features.QuizQuestions.Constants;
+using Application.Features.Quizs.Constants;
+using Application.Features.Results.Constants;
 using Application.Features.UserOperationClaims.Constants;
 using Application.Features.Users.Constants;
 using Domain.Entities;
@@ -232,6 +236,91 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
+
+        #region Quizs
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Read },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Write },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Create },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Update },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region Questions
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Read },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Write },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Create },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Update },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region Questions
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Read },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Write },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Create },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Update },
+                new() { Id = ++lastId, Name = QuestionsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region Quizs
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Read },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Write },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Create },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Update },
+                new() { Id = ++lastId, Name = QuizsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region QuizQuestions
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = QuizQuestionsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = QuizQuestionsOperationClaims.Read },
+                new() { Id = ++lastId, Name = QuizQuestionsOperationClaims.Write },
+                new() { Id = ++lastId, Name = QuizQuestionsOperationClaims.Create },
+                new() { Id = ++lastId, Name = QuizQuestionsOperationClaims.Update },
+                new() { Id = ++lastId, Name = QuizQuestionsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region Results
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = ResultsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = ResultsOperationClaims.Read },
+                new() { Id = ++lastId, Name = ResultsOperationClaims.Write },
+                new() { Id = ++lastId, Name = ResultsOperationClaims.Create },
+                new() { Id = ++lastId, Name = ResultsOperationClaims.Update },
+                new() { Id = ++lastId, Name = ResultsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = QuizsOperationClaims.Finish });
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

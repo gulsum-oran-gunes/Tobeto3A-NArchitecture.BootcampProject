@@ -10,7 +10,7 @@ public static class MockConfiguration
         {
             { "TokenOptions:Audience", "Kodlamaio Users" },
             { "TokenOptions:Issuer", "Kodlamaio" },
-            { "TokenOptions:AccessTokenExpiration", "10" },
+            { "TokenOptions:AccessTokenExpiration", "120" },
             { "TokenOptions:SecurityKey", "StrongAndSecretKeyStrongAndSecretKeyStrongAndSecretKeyStrongAndSecretKey" },
             { "TokenOptions:RefreshTokenExpiration", "1440" },
             { "TokenOptions:RefreshTokenTTL", "180" },

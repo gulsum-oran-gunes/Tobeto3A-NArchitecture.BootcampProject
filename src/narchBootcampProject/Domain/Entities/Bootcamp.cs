@@ -17,22 +17,25 @@ public class Bootcamp : Entity<int>
     public DateTime EndDate { get; set; }
     public virtual ICollection<BootcampImage> BootcampImages { get; set; }
     public ICollection<ApplicationEntity> ApplicationEntities { get; set; }
+    public ICollection<Question> Questions { get; set; }
+    public ICollection<Quiz> Quizzes { get; set; }
 
     public Bootcamp()
     {
         BootcampImages = new HashSet<BootcampImage>();
         ApplicationEntities = new HashSet<ApplicationEntity>();
+        Questions = new HashSet<Question>();
+        Quizzes = new HashSet<Quiz>();
     }
 
     public virtual Instructor? Instructor { get; set; }
     public virtual BootcampState? BootcampState { get; set; }
 
-    public Bootcamp(int id, string name, Guid instructorId, int bootcampState, DateTime startDate, DateTime endDate)
+    public Bootcamp(string name, Guid ınstructorId, int bootcampStateId, DateTime startDate, DateTime endDate)
     {
-        Id = id;
         Name = name;
-        InstructorId = instructorId;
-        BootcampStateId = bootcampState;
+        InstructorId = ınstructorId;
+        BootcampStateId = bootcampStateId;
         StartDate = startDate;
         EndDate = endDate;
     }

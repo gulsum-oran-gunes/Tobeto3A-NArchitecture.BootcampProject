@@ -23,6 +23,10 @@ public class BaseDbContext : DbContext
     public DbSet<BootcampState> BootcampStates { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Instructor> Instructors { get; set; }
+    public DbSet<Quiz> Quizs { get; set; }
+    public DbSet<Question> Questions { get; set; }
+    public DbSet<QuizQuestion> QuizQuestions { get; set; }
+    public DbSet<Result> Results { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

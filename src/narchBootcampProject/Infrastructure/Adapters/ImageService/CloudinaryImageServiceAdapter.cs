@@ -1,15 +1,16 @@
-﻿using Application.Services.ImageService;
+﻿using System.ComponentModel;
+using Application.Services.ImageService;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System.ComponentModel;
 
 namespace Infrastructure.Adapters.ImageService;
 
 public class CloudinaryImageServiceAdapter : ImageServiceBase
 {
     private readonly Cloudinary _cloudinary;
+
     public CloudinaryImageServiceAdapter(IConfiguration configuration)
     {
         var connectionString = configuration.GetValue<string>("CloudinaryAccount:ConnectionString");
