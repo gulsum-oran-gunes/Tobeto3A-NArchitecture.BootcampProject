@@ -51,7 +51,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 new()
                 {
                     UserName = "admin",
-                    FirstName = "Gulsum",
+                    FirstName = "Admin",
                     LastName = "Oran",
                     NationalIdentity = "123456",
                     DateOfBirth = DateTime.Now,
