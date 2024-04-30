@@ -53,7 +53,7 @@ public class DeleteInstructorCommand
             );
             await _instructorBusinessRules.InstructorShouldExistWhenSelected(instructor);
 
-            await _instructorRepository.DeleteAsync(instructor!);
+            await _instructorRepository.DeleteAsync(instructor!, true);
 
             DeletedInstructorResponse response = _mapper.Map<DeletedInstructorResponse>(instructor);
             return response;

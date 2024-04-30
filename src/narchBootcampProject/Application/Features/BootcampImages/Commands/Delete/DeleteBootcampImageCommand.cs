@@ -56,7 +56,7 @@ public class DeleteBootcampImageCommand
             );
             await _bootcampImageBusinessRules.BootcampImageShouldExistWhenSelected(bootcampImage);
 
-            await _bootcampImageRepository.DeleteAsync(bootcampImage!);
+            await _bootcampImageRepository.DeleteAsync(bootcampImage!, true);
 
             DeletedBootcampImageResponse response = _mapper.Map<DeletedBootcampImageResponse>(bootcampImage);
             return response;

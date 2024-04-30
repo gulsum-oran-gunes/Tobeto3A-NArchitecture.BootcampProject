@@ -3,6 +3,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
@@ -43,7 +44,8 @@ public class GetListBlacklistQuery : IRequest<GetListResponse<GetListBlacklistLi
             IPaginate<Blacklist> blacklists = await _blacklistRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: a => a.Include(ap => ap.Applicant)
             );
 
             GetListResponse<GetListBlacklistListItemDto> response = _mapper.Map<GetListResponse<GetListBlacklistListItemDto>>(
