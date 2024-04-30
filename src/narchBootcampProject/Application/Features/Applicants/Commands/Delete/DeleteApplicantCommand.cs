@@ -53,7 +53,7 @@ public class DeleteApplicantCommand
             );
             await _applicantBusinessRules.ApplicantShouldExistWhenSelected(applicant);
 
-            await _applicantRepository.DeleteAsync(applicant!);
+            await _applicantRepository.DeleteAsync(applicant!, true);
 
             DeletedApplicantResponse response = _mapper.Map<DeletedApplicantResponse>(applicant);
             return response;
