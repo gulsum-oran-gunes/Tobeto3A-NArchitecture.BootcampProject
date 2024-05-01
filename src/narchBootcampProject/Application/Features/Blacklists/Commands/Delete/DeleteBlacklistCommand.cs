@@ -51,9 +51,9 @@ public class DeleteBlacklistCommand
                 predicate: b => b.Id == request.Id,
                 cancellationToken: cancellationToken
             );
-            await _blacklistBusinessRules.BlacklistShouldExistWhenSelected(blacklist);
+            await _blacklistBusinessRules.BlacklistShouldExistWhenSelected(blacklist );
 
-            await _blacklistRepository.DeleteAsync(blacklist!);
+            await _blacklistRepository.DeleteAsync(blacklist!,true);
 
             DeletedBlacklistResponse response = _mapper.Map<DeletedBlacklistResponse>(blacklist);
             return response;
