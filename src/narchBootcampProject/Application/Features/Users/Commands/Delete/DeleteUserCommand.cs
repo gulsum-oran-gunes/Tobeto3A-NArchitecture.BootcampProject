@@ -36,7 +36,7 @@ public class DeleteUserCommand : IRequest<DeletedUserResponse>, ISecuredRequest
             );
             await _userBusinessRules.UserShouldBeExistsWhenSelected(user);
 
-            await _userRepository.DeleteAsync(user!);
+            await _userRepository.DeleteAsync(user!, true);
 
             DeletedUserResponse response = _mapper.Map<DeletedUserResponse>(user);
             return response;

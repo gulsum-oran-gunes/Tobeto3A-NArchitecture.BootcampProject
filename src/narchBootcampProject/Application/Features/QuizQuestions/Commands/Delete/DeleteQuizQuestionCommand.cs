@@ -56,7 +56,7 @@ public class DeleteQuizQuestionCommand
             );
             await _quizQuestionBusinessRules.QuizQuestionShouldExistWhenSelected(quizQuestion);
 
-            await _quizQuestionRepository.DeleteAsync(quizQuestion!);
+            await _quizQuestionRepository.DeleteAsync(quizQuestion!, true);
 
             DeletedQuizQuestionResponse response = _mapper.Map<DeletedQuizQuestionResponse>(quizQuestion);
             return response;

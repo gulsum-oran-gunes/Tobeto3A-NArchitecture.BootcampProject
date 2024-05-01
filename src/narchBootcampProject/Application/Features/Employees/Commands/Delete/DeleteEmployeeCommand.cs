@@ -53,7 +53,7 @@ public class DeleteEmployeeCommand
             );
             await _employeeBusinessRules.EmployeeShouldExistWhenSelected(employee);
 
-            await _employeeRepository.DeleteAsync(employee!);
+            await _employeeRepository.DeleteAsync(employee!, true);
 
             DeletedEmployeeResponse response = _mapper.Map<DeletedEmployeeResponse>(employee);
             return response;
