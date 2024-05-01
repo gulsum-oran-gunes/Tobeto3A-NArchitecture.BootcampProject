@@ -4,6 +4,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
@@ -53,7 +54,8 @@ public class UpdateBootcampCommand
         {
             Bootcamp? bootcamp = await _bootcampRepository.GetAsync(
                 predicate: b => b.Id == request.Id,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: p => p.Include(x => x.Instructor).Include(p => p.BootcampState).Include(p => p.BootcampImages)
             );
             await _bootcampBusinessRules.BootcampShouldExistWhenSelected(bootcamp);
             bootcamp = _mapper.Map(request, bootcamp);
