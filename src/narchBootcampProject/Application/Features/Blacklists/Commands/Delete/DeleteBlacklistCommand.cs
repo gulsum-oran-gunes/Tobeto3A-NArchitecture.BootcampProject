@@ -53,7 +53,7 @@ public class DeleteBlacklistCommand
             );
             await _blacklistBusinessRules.BlacklistShouldExistWhenSelected(blacklist );
 
-            await _blacklistRepository.DeleteAsync(blacklist!,true);
+            await _blacklistRepository.DeleteAsync(blacklist!);
 
             DeletedBlacklistResponse response = _mapper.Map<DeletedBlacklistResponse>(blacklist);
             return response;
