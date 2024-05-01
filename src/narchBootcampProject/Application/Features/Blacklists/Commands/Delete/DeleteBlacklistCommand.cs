@@ -47,13 +47,13 @@ public class DeleteBlacklistCommand
 
         public async Task<DeletedBlacklistResponse> Handle(DeleteBlacklistCommand request, CancellationToken cancellationToken)
         {
+
             Blacklist? blacklist = await _blacklistRepository.GetAsync(
                 predicate: b => b.Id == request.Id,
                 cancellationToken: cancellationToken
             );
-            await _blacklistBusinessRules.BlacklistShouldExistWhenSelected(blacklist );
-
-            await _blacklistRepository.DeleteAsync(blacklist!);
+            await _blacklistBusinessRules.BlacklistShouldExistWhenSelected(blacklist);
+            await _blacklistRepository.DeleteAsync(blacklist!, true);
 
             DeletedBlacklistResponse response = _mapper.Map<DeletedBlacklistResponse>(blacklist);
             return response;
