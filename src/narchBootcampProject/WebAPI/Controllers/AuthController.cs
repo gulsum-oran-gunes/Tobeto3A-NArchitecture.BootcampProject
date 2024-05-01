@@ -4,6 +4,8 @@ using Application.Features.Auth.Commands.Login;
 using Application.Features.Auth.Commands.RefreshToken;
 using Application.Features.Auth.Commands.Register;
 using Application.Features.Auth.Commands.Register.Applicant;
+using Application.Features.Auth.Commands.Register.Employee;
+using Application.Features.Auth.Commands.Register.Instructor;
 using Application.Features.Auth.Commands.RevokeToken;
 using Application.Features.Auth.Commands.VerifyEmailAuthenticator;
 using Application.Features.Auth.Commands.VerifyOtpAuthenticator;
@@ -45,6 +47,24 @@ public class AuthController : BaseController
     {
         ApplicantRegisterCommand registerCommand =
             new() { ApplicantRegisterDto = applicantRegisterDto, IpAddress = getIpAddress() };
+        RegisteredResponse result = await Mediator.Send(registerCommand);
+        setRefreshTokenToCookie(result.RefreshToken);
+        return Created(uri: "", result.AccessToken);
+    }
+    [HttpPost("RegisterEmployee")]
+    public async Task<IActionResult> Register([FromBody] EmployeeRegisterDto employeeRegisterDto)
+    {
+        EmployeeRegisterCommand registerCommand =
+            new() { EmployeeRegisterDto = employeeRegisterDto, IpAddress = getIpAddress() };
+        RegisteredResponse result = await Mediator.Send(registerCommand);
+        setRefreshTokenToCookie(result.RefreshToken);
+        return Created(uri: "", result.AccessToken);
+    }
+    [HttpPost("RegisterInstructor")]
+    public async Task<IActionResult> Register([FromBody] InstructorRegisterDto instructorRegisterDto)
+    {
+        InstructorRegisterCommand registerCommand =
+            new() { InstructorRegisterDto = instructorRegisterDto, IpAddress = getIpAddress() };
         RegisteredResponse result = await Mediator.Send(registerCommand);
         setRefreshTokenToCookie(result.RefreshToken);
         return Created(uri: "", result.AccessToken);

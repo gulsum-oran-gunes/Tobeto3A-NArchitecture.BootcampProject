@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
+using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Dtos;
 using NArchitecture.Core.Security.Hashing;
@@ -35,16 +36,20 @@ public class InstructorRegisterCommand : IRequest<RegisteredResponse>
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
         private readonly IInstructorRepository _instructorRepository;
+        private readonly IUserOperationClaimRepository _userOperationClaimRepository;
 
         public RegisterCommandHandler(
             IAuthService authService,
             AuthBusinessRules authBusinessRules,
-            IInstructorRepository ınstructorRepository
+            IInstructorRepository ınstructorRepository,
+            IUserOperationClaimRepository userOperationClaimRepository
+
         )
         {
             _authService = authService;
             _authBusinessRules = authBusinessRules;
             _instructorRepository = ınstructorRepository;
+            _userOperationClaimRepository = userOperationClaimRepository;
         }
 
         public async Task<RegisteredResponse> Handle(InstructorRegisterCommand request, CancellationToken cancellationToken)
@@ -70,6 +75,9 @@ public class InstructorRegisterCommand : IRequest<RegisteredResponse>
                     PasswordSalt = passwordSalt,
                 };
             Domain.Entities.Instructor createdInstructor = await _instructorRepository.AddAsync(newInstructor);
+            UserOperationClaim newUserOperationClaim = new() { UserId = createdInstructor.Id, OperationClaimId = 116 };
+
+            await _userOperationClaimRepository.AddAsync(newUserOperationClaim);
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(createdInstructor);
 
