@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
+using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
@@ -34,16 +35,21 @@ public class EmployeeRegisterCommand : IRequest<RegisteredResponse>
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUserOperationClaimRepository _userOperationClaimRepository;
 
         public RegisterCommandHandler(
             IAuthService authService,
             AuthBusinessRules authBusinessRules,
             IEmployeeRepository employeeRepository
+            ,
+            IUserOperationClaimRepository userOperationClaimRepository
+
         )
         {
             _authService = authService;
             _authBusinessRules = authBusinessRules;
             _employeeRepository = employeeRepository;
+            _userOperationClaimRepository = userOperationClaimRepository;
         }
 
         public async Task<RegisteredResponse> Handle(EmployeeRegisterCommand request, CancellationToken cancellationToken)
@@ -69,6 +75,9 @@ public class EmployeeRegisterCommand : IRequest<RegisteredResponse>
                     PasswordSalt = passwordSalt,
                 };
             Domain.Entities.Employee createdEmployee = await _employeeRepository.AddAsync(newEmployee);
+            UserOperationClaim newUserOperationClaim = new() { UserId = createdEmployee.Id, OperationClaimId = 115 };
+
+            await _userOperationClaimRepository.AddAsync(newUserOperationClaim);
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(createdEmployee);
 
