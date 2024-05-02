@@ -13,9 +13,9 @@ public interface IBootcampVideoService
 {
     Task<List<BootcampVideo>> GetList();
     Task<BootcampVideo> Get(Guid id);
-    Task<BootcampVideo> Add(IFormFile file, BootcampImageRequest request);
-    Task<BootcampVideo> Update(IFormFile file, BootcampImage BootcampImage);
-    Task<BootcampVideo> Delete(BootcampImage BootcampImage);
-    Task<List<BootcampVideo>> GetImagesByBootcampId(Guid id);
-
+    Task<BootcampVideo> Add(IFormFile videoFile, BootcampVideoRequest request);
+    Task<BootcampVideo> Update(IFormFile videoFile, BootcampVideo BootcampVideo);
+    Task<BootcampVideo> Delete(BootcampVideo BootcampVideo);
+    Task<List<BootcampVideo>> GetVideosByBootcampId(Guid id);
+   
 }

@@ -26,7 +26,6 @@
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\Dtos" />
     <Folder Include="logs\" />
   </ItemGroup>
 </Project>

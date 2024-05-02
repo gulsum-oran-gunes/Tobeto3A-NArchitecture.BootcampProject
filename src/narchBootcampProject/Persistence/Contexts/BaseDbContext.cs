@@ -20,6 +20,7 @@ public class BaseDbContext : DbContext
     public DbSet<Blacklist> Blacklists { get; set; }
     public DbSet<Bootcamp> Bootcamps { get; set; }
     public DbSet<BootcampImage> BootcampImages { get; set; }
+    public DbSet<BootcampVideo> BootcampVideos { get; set; }
     public DbSet<BootcampState> BootcampStates { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Instructor> Instructors { get; set; }
