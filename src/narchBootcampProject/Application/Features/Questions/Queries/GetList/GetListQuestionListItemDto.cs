@@ -6,6 +6,7 @@ public class GetListQuestionListItemDto : IDto
 {
     public int Id { get; set; }
     public int BootcampId { get; set; }
+    public string BootcampName { get; set; }
     public string Text { get; set; }
     public string AnswerA { get; set; }
     public string AnswerB { get; set; }
