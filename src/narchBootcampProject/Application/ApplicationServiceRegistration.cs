@@ -8,6 +8,7 @@ using Application.Services.Blacklists;
 using Application.Services.BootcampImages;
 using Application.Services.Bootcamps;
 using Application.Services.BootcampStates;
+using Application.Services.BootcampVideoService;
 using Application.Services.Employees;
 using Application.Services.Instructors;
 using Application.Services.Questions;
@@ -79,6 +80,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IBlacklistService, BlacklistManager>();
         services.AddScoped<IBootcampService, BootcampManager>();
         services.AddScoped<IBootcampImageService, BootcampImageManager>();
+        services.AddScoped<IBootcampVideoService, BootcampVideoManager>();
         services.AddScoped<IBootcampStateService, BootcampStateManager>();
         services.AddScoped<IEmployeeService, EmployeeManager>();
         services.AddScoped<IInstructorService, InstructorManager>();
