@@ -59,6 +59,12 @@ public class AuthManager : IAuthService
         await _refreshTokenRepository.DeleteRangeAsync(refreshTokens, true);
     }
 
+    public async Task DeleteAllRefreshTokensByUserIdAsync(Guid userId)
+    {
+        List<RefreshToken> refreshTokens = await _refreshTokenRepository.GetRefreshTokenByUserIdAsync(userId);
+        await _refreshTokenRepository.DeleteRangeAsync(refreshTokens, true);
+    }
+
     public async Task<RefreshToken?> GetRefreshTokenByToken(string token)
     {
         RefreshToken? refreshToken = await _refreshTokenRepository.GetAsync(predicate: r => r.Token == token);

@@ -12,7 +12,7 @@ using static Application.Features.Employees.Constants.EmployeesOperationClaims;
 
 namespace Application.Features.Employees.Queries.GetList;
 
-public class GetListEmployeeQuery : IRequest<GetListResponse<GetListEmployeeListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListEmployeeQuery : IRequest<GetListResponse<GetListEmployeeListItemDto>>, ISecuredRequest /*ICachableRequest*/
 {
     public PageRequest PageRequest { get; set; }
 

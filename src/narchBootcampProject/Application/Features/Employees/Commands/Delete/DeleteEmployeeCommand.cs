@@ -1,7 +1,9 @@
 using Application.Features.Employees.Constants;
 using Application.Features.Employees.Constants;
 using Application.Features.Employees.Rules;
+using Application.Services.AuthService;
 using Application.Services.Repositories;
+using Application.Services.UserOperationClaims;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -33,16 +35,22 @@ public class DeleteEmployeeCommand
         private readonly IMapper _mapper;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly EmployeeBusinessRules _employeeBusinessRules;
+        private readonly IAuthService _authService;
+        private readonly IUserOperationClaimService _userOperationClaimService;
 
         public DeleteEmployeeCommandHandler(
             IMapper mapper,
             IEmployeeRepository employeeRepository,
-            EmployeeBusinessRules employeeBusinessRules
-        )
+            EmployeeBusinessRules employeeBusinessRules,
+            IAuthService authService,
+            IUserOperationClaimService userOperationClaimService)
+            
         {
             _mapper = mapper;
             _employeeRepository = employeeRepository;
             _employeeBusinessRules = employeeBusinessRules;
+           _authService = authService;
+            _userOperationClaimService = userOperationClaimService;
         }
 
         public async Task<DeletedEmployeeResponse> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
@@ -52,8 +60,9 @@ public class DeleteEmployeeCommand
                 cancellationToken: cancellationToken
             );
             await _employeeBusinessRules.EmployeeShouldExistWhenSelected(employee);
-
-            await _employeeRepository.DeleteAsync(employee!, true);
+            //await _authService.DeleteAllRefreshTokensByUserIdAsync(employee.Id);
+            //await _userOperationClaimService.DeleteAllUserOperationClaimByUserIdAsync(employee.Id);
+            await _employeeRepository.DeleteAsync(employee!);
 
             DeletedEmployeeResponse response = _mapper.Map<DeletedEmployeeResponse>(employee);
             return response;
