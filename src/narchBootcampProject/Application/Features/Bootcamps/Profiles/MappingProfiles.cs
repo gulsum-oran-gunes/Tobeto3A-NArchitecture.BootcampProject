@@ -20,9 +20,14 @@ public class MappingProfiles : Profile
         CreateMap<Bootcamp, UpdatedBootcampResponse>().ReverseMap();
         CreateMap<Bootcamp, DeleteBootcampCommand>().ReverseMap();
         CreateMap<Bootcamp, DeletedBootcampResponse>().ReverseMap();
-        CreateMap<Bootcamp, GetByIdBootcampResponse>().ReverseMap();
-        CreateMap<Bootcamp, GetListBootcampListItemDto>().
-        ForMember(destinationMember: x => x.BootcampImagePath, memberOptions: opt => opt.MapFrom(x => x.BootcampImages.FirstOrDefault().ImagePath)); 
+        CreateMap<Bootcamp, GetByIdBootcampResponse>()
+        .ForMember(destinationMember: x => x.BootcampImagePath, memberOptions: opt => opt.MapFrom(x => x.BootcampImages.FirstOrDefault().ImagePath))
+        .ForMember(destinationMember: x => x.BootcampImageId, memberOptions: opt => opt.MapFrom(x => x.BootcampImages.FirstOrDefault().Id));
+        
+        CreateMap<Bootcamp, GetListBootcampListItemDto>()
+       .ForMember(destinationMember: x => x.BootcampImagePath, memberOptions: opt => opt.MapFrom(x => x.BootcampImages.FirstOrDefault().ImagePath))
+       .ForMember(destinationMember: x => x.BootcampImageId, memberOptions: opt => opt.MapFrom(x => x.BootcampImages.FirstOrDefault().Id));
+
         CreateMap<IPaginate<Bootcamp>, GetListResponse<GetListBootcampListItemDto>>().ReverseMap();
     }
 }
