@@ -30,7 +30,6 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IBlacklistRepository, BlacklistRepository>();
         services.AddScoped<IBootcampRepository, BootcampRepository>();
         services.AddScoped<IBootcampImageRepository, BootcampImageRepository>();
-        services.AddScoped<IBootcampVideoRepository, BootcampVideoRepository>();
         services.AddScoped<IBootcampStateRepository, BootcampStateRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IInstructorRepository, InstructorRepository>();
