@@ -46,7 +46,7 @@ public class DeleteQuizCommand
             Quiz? quiz = await _quizRepository.GetAsync(predicate: q => q.Id == request.Id, cancellationToken: cancellationToken);
             await _quizBusinessRules.QuizShouldExistWhenSelected(quiz);
 
-            await _quizRepository.DeleteAsync(quiz!, true);
+            await _quizRepository.DeleteAsync(quiz!);
 
             DeletedQuizResponse response = _mapper.Map<DeletedQuizResponse>(quiz);
             return response;

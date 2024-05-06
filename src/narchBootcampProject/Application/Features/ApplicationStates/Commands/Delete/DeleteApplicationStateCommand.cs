@@ -57,7 +57,7 @@ public class DeleteApplicationStateCommand
             );
             await _applicationStateBusinessRules.ApplicationStateShouldExistWhenSelected(applicationState);
 
-            await _applicationStateRepository.DeleteAsync(applicationState!, true);
+            await _applicationStateRepository.DeleteAsync(applicationState!);
 
             DeletedApplicationStateResponse response = _mapper.Map<DeletedApplicationStateResponse>(applicationState);
             return response;

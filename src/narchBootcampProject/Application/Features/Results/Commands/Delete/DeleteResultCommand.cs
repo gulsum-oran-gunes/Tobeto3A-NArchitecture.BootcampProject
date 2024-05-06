@@ -53,7 +53,7 @@ public class DeleteResultCommand
             );
             await _resultBusinessRules.ResultShouldExistWhenSelected(result);
 
-            await _resultRepository.DeleteAsync(result!, true);
+            await _resultRepository.DeleteAsync(result!);
 
             DeletedResultResponse response = _mapper.Map<DeletedResultResponse>(result);
             return response;

@@ -57,7 +57,7 @@ public class DeleteApplicationEntityCommand
             );
             await _applicationEntityBusinessRules.ApplicationEntityShouldExistWhenSelected(applicationEntity);
 
-            await _applicationEntityRepository.DeleteAsync(applicationEntity!, true);
+            await _applicationEntityRepository.DeleteAsync(applicationEntity!);
 
             DeletedApplicationEntityResponse response = _mapper.Map<DeletedApplicationEntityResponse>(applicationEntity);
             return response;

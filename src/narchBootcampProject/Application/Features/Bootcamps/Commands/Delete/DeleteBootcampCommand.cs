@@ -53,7 +53,7 @@ public class DeleteBootcampCommand
             );
             await _bootcampBusinessRules.BootcampShouldExistWhenSelected(bootcamp);
 
-            await _bootcampRepository.DeleteAsync(bootcamp!, true);
+            await _bootcampRepository.DeleteAsync(bootcamp!);
 
             DeletedBootcampResponse response = _mapper.Map<DeletedBootcampResponse>(bootcamp);
             return response;

@@ -53,7 +53,7 @@ public class DeleteQuestionCommand
             );
             await _questionBusinessRules.QuestionShouldExistWhenSelected(question);
 
-            await _questionRepository.DeleteAsync(question!, true);
+            await _questionRepository.DeleteAsync(question!);
 
             DeletedQuestionResponse response = _mapper.Map<DeletedQuestionResponse>(question);
             return response;
