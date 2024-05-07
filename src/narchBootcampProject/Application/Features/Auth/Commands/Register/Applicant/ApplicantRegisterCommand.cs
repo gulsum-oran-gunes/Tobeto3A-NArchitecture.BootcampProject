@@ -9,15 +9,23 @@ using Application.Services.Repositories;
 using Application.Services.UserOperationClaims;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
 
 namespace Application.Features.Auth.Commands.Register.Applicant;
 
-public class ApplicantRegisterCommand : IRequest<RegisteredResponse>
+public class ApplicantRegisterCommand : IRequest<RegisteredResponse>, ICacheRemoverRequest
 {
     public ApplicantRegisterDto ApplicantRegisterDto { get; set; }
     public string IpAddress { get; set; }
+
+    public bool BypassCache { get; }
+
+    public string? CacheKey { get; }
+
+    public string[]? CacheGroupKey => ["GetApplicants"];
+  
 
     public ApplicantRegisterCommand()
     {

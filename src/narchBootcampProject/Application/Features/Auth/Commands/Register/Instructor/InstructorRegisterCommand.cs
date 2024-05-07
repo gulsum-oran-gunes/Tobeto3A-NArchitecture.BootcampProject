@@ -9,15 +9,21 @@ using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Dtos;
+using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
 
 namespace Application.Features.Auth.Commands.Register.Instructor;
 
-public class InstructorRegisterCommand : IRequest<RegisteredResponse>
+public class InstructorRegisterCommand : IRequest<RegisteredResponse>, ICacheRemoverRequest
 {
     public InstructorRegisterDto InstructorRegisterDto { get; set; }
     public string IpAddress { get; set; }
+    public bool BypassCache { get; }
+
+    public string? CacheKey { get; }
+
+    public string[]? CacheGroupKey => ["GetInstructors"];
 
     public InstructorRegisterCommand()
     {

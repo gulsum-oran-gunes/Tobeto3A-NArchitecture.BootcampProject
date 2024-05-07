@@ -17,6 +17,7 @@ public class Question : Entity<int>
     public string AnswerC { get; set; }
     public string AnswerD { get; set; }
     public string CorrectAnswer { get; set; }
+    [JsonIgnore]
     public virtual Bootcamp? Bootcamp { get; set; }
 
     [JsonIgnore]

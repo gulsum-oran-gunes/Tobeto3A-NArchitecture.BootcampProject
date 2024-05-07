@@ -22,8 +22,8 @@ public class MappingProfiles : Profile
         CreateMap<Quiz, UpdatedQuizResponse>().ReverseMap();
         CreateMap<Quiz, DeleteQuizCommand>().ReverseMap();
         CreateMap<Quiz, DeletedQuizResponse>().ReverseMap();
-        CreateMap<Quiz, GetByIdQuizResponse>().ReverseMap();
-        CreateMap<Quiz, GetListQuizListItemDto>().ReverseMap();
+        CreateMap<Quiz, GetByIdQuizResponse>().ForMember(q => q.Questions, opt => opt.MapFrom(q => q.QuizQuestions.Select(x => x.Question)));
+        CreateMap<Quiz, GetListQuizListItemDto>().ForMember(q => q.Questions, opt => opt.MapFrom(q => q.QuizQuestions.Select(x => x.Question)));
         CreateMap<IPaginate<Quiz>, GetListResponse<GetListQuizListItemDto>>().ReverseMap();
         CreateMap<Quiz, FinishQuizCommand>().ReverseMap();
         CreateMap<Result, FinishedQuizResponse>().ReverseMap();

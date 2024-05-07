@@ -4,6 +4,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.Results.Constants.ResultsOperationClaims;
 
@@ -36,7 +37,8 @@ public class GetByIdResultQuery : IRequest<GetByIdResultResponse>, ISecuredReque
         {
             Result? result = await _resultRepository.GetAsync(
                 predicate: r => r.Id == request.Id,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: x => x.Include(a => a.Quiz).ThenInclude(b => b.Applicant)
             );
             await _resultBusinessRules.ResultShouldExistWhenSelected(result);
 

@@ -20,8 +20,17 @@ public class MappingProfiles : Profile
         CreateMap<Result, UpdatedResultResponse>().ReverseMap();
         CreateMap<Result, DeleteResultCommand>().ReverseMap();
         CreateMap<Result, DeletedResultResponse>().ReverseMap();
-        CreateMap<Result, GetByIdResultResponse>().ReverseMap();
-        CreateMap<Result, GetListResultListItemDto>().ReverseMap();
+        CreateMap<Result, GetByIdResultResponse>()
+             .ForMember(destinationMember: x => x.ApplicantId, memberOptions: opt => opt.MapFrom(x => x.Quiz.ApplicantId))
+         .ForMember(destinationMember: x => x.ApplicantFirstName, memberOptions: opt => opt.MapFrom(x => x.Quiz.Applicant.FirstName))
+         .ForMember(destinationMember: x => x.ApplicantLastName, memberOptions: opt => opt.MapFrom(x => x.Quiz.Applicant.LastName));
+
+        CreateMap<Result, GetListResultListItemDto>()
+            .ForMember(destinationMember: x => x.ApplicantId, memberOptions: opt => opt.MapFrom(x => x.Quiz.ApplicantId))
+         .ForMember(destinationMember: x => x.ApplicantFirstName, memberOptions: opt => opt.MapFrom(x => x.Quiz.Applicant.FirstName))
+         .ForMember(destinationMember: x => x.ApplicantLastName, memberOptions: opt => opt.MapFrom(x => x.Quiz.Applicant.LastName));
+        
+
         CreateMap<IPaginate<Result>, GetListResponse<GetListResultListItemDto>>().ReverseMap();
     }
 }

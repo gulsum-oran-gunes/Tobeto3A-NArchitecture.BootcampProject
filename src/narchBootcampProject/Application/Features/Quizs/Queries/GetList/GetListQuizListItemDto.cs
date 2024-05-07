@@ -1,3 +1,4 @@
+using Domain.Entities;
 using NArchitecture.Core.Application.Dtos;
 
 namespace Application.Features.Quizs.Queries.GetList;
@@ -12,4 +13,6 @@ public class GetListQuizListItemDto : IDto
     public string BootcampName { get; set; }
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
+
+    public List<Question> Questions { get; set; }
 }

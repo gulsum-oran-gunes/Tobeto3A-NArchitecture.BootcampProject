@@ -3,6 +3,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
@@ -42,7 +43,8 @@ public class GetListResultQuery : IRequest<GetListResponse<GetListResultListItem
             IPaginate<Result> results = await _resultRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: x => x.Include(a => a.Quiz).ThenInclude(b => b.Applicant)
             );
 
             GetListResponse<GetListResultListItemDto> response = _mapper.Map<GetListResponse<GetListResultListItemDto>>(results);

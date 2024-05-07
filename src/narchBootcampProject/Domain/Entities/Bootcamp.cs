@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using NArchitecture.Core.Persistence.Repositories;
 using static System.Net.Mime.MediaTypeNames;
@@ -17,7 +18,9 @@ public class Bootcamp : Entity<int>
     public DateTime EndDate { get; set; }
     public virtual ICollection<BootcampImage> BootcampImages { get; set; }
     public ICollection<ApplicationEntity> ApplicationEntities { get; set; }
+    [JsonIgnore]
     public ICollection<Question> Questions { get; set; }
+    [JsonIgnore]
     public ICollection<Quiz> Quizzes { get; set; }
 
     public Bootcamp()
