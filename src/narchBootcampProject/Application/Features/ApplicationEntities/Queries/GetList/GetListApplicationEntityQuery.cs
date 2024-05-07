@@ -3,6 +3,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
@@ -46,7 +47,8 @@ public class GetListApplicationEntityQuery
             IPaginate<ApplicationEntity> applicationEntities = await _applicationEntityRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: p => p.Include(x => x.Applicant).Include(p => p.Bootcamp).Include(p => p.ApplicationState)
             );
 
             GetListResponse<GetListApplicationEntityListItemDto> response = _mapper.Map<
