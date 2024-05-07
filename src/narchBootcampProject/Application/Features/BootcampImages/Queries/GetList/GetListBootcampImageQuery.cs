@@ -14,8 +14,8 @@ namespace Application.Features.BootcampImages.Queries.GetList;
 
 public class GetListBootcampImageQuery
     : IRequest<GetListResponse<GetListBootcampImageListItemDto>>,
-        ISecuredRequest,
-        ICachableRequest
+        ISecuredRequest
+        //ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 

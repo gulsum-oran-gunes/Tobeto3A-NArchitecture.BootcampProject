@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services.BootcampImages;
 
-public class BootcampImageRequest
+public class BootcampImageRequest 
 {
     public int BootcampId { get; set; }
     public string ImagePath { get; set; }

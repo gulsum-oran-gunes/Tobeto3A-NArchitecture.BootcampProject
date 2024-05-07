@@ -5,15 +5,20 @@ using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Query;
+using NArchitecture.Core.Application.Pipelines.Caching;
+using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.BootcampImages;
 
 public class BootcampImageManager : IBootcampImageService
 {
+
+
     private readonly IBootcampImageRepository _bootcampImageRepository;
     private readonly BootcampImageBusinessRules _bootcampImageBusinessRules;
     private readonly ImageServiceBase _imageService;
+
 
     public BootcampImageManager(
         IBootcampImageRepository bootcampImageRepository,
