@@ -11,5 +11,8 @@ public class GetListResultListItemDto : IDto
     public string ApplicantLastName { get; set; }
     public int WrongAnswers { get; set; }
     public int CorrectAnswers { get; set; }
+    public bool IsPassed { get; set; }
+    public int Score => CorrectAnswers * 20;
+
 
 }

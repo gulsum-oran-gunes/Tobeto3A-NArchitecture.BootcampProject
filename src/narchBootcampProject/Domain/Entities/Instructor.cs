@@ -10,6 +10,7 @@ namespace Domain.Entities;
 public class Instructor : User
 {
     public string CompanyName { get; set; }
+    public string? ImageUrl {  get; set; }
 
     public ICollection<Bootcamp> Bootcamps { get; set; }
 
@@ -18,8 +19,9 @@ public class Instructor : User
         Bootcamps = new HashSet<Bootcamp>();
     }
 
-    public Instructor(string companyName)
+    public Instructor(string companyName, string? imageUrl)
     {
         CompanyName = companyName;
+        ImageUrl = imageUrl;
     }
 }

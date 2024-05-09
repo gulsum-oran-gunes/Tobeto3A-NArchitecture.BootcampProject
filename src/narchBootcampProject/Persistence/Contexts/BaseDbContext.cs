@@ -27,6 +27,8 @@ public class BaseDbContext : DbContext
     public DbSet<Question> Questions { get; set; }
     public DbSet<QuizQuestion> QuizQuestions { get; set; }
     public DbSet<Result> Results { get; set; }
+    public DbSet<BootcampContent> BootcampContents { get; set; }
+    public DbSet<ApplicantBootcampContent> ApplicantBootcampContents { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

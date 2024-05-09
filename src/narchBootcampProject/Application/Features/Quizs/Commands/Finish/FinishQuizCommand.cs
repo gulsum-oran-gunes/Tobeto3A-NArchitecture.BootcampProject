@@ -80,13 +80,15 @@ public class FinishQuizCommand
                 }
             }
             bool isPassed = correctAnswersCount > 1;
+            
 
             Result result = new Result
             {
                 CorrectAnswers = correctAnswersCount,
                 WrongAnswers = wrongAnswersCount,
                 QuizId = request.QuizId,
-                IsPassed = isPassed
+                IsPassed = isPassed,
+               
             };
             await _resultRepository.AddAsync(result);
 

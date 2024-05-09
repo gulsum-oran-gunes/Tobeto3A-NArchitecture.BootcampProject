@@ -15,8 +15,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.UserName).HasColumnName("UserName").IsRequired();
         builder.Property(u => u.FirstName).HasColumnName("FirstName").IsRequired();
         builder.Property(u => u.LastName).HasColumnName("LastName").IsRequired();
-        builder.Property(u => u.DateOfBirth).HasColumnName("DateOfBirth");
-        builder.Property(u => u.NationalIdentity).HasColumnName("NationalIdentity").IsRequired();
+        builder.Property(u => u.DateOfBirth).HasColumnName("DateOfBirth").IsRequired(false);
+        builder.Property(u => u.NationalIdentity).HasColumnName("NationalIdentity").IsRequired(false);
         builder.Property(u => u.Email).HasColumnName("Email").IsRequired();
         builder.Property(u => u.PasswordSalt).HasColumnName("PasswordSalt").IsRequired();
         builder.Property(u => u.PasswordHash).HasColumnName("PasswordHash").IsRequired();
@@ -39,6 +39,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     }
 
     public static Guid AdminId { get; } = Guid.NewGuid();
+    public static Guid Admin2Id { get; } = Guid.NewGuid();
     private IEnumerable<User> _seeds
     {
         get
@@ -62,6 +63,27 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                     PasswordSalt = passwordSalt
                 };
             yield return adminUser;
+
+            HashingHelper.CreatePasswordHash(
+            password: "Passw0rd2!",
+            passwordHash: out byte[] passwordHash2,
+            passwordSalt: out byte[] passwordSalt2
+        );
+            User adminUser2 =
+            new()
+            {
+                UserName = "admin",
+                FirstName = "Gulsum",
+                LastName = "Oran",
+                NationalIdentity = "123456",
+                DateOfBirth = null,
+                Id = Admin2Id,
+                Email = "gulsum.oran@hotmail.com",
+                PasswordHash = passwordHash2,
+                PasswordSalt = passwordSalt2
+            };
+            yield return adminUser2;
+
         }
     }
 }

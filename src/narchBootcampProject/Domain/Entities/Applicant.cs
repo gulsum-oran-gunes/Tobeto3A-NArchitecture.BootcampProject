@@ -10,18 +10,20 @@ namespace Domain.Entities;
 
 public class Applicant : User
 {
-    public string About { get; set; }
+    public string? About { get; set; }
 
     public ICollection<ApplicationEntity> ApplicationEntities { get; set; }
     public ICollection<Quiz> Quizzes { get; set; }
+    public ICollection<ApplicantBootcampContent>ApplicantBootcampContents { get; set; }
 
     public Applicant()
     {
         ApplicationEntities = new HashSet<ApplicationEntity>();
         Quizzes = new HashSet<Quiz>();
+        ApplicantBootcampContents = new HashSet<ApplicantBootcampContent>();
     }
 
-    public Applicant(string about)
+    public Applicant(string? about)
     {
         About = about;
     }

@@ -13,4 +13,5 @@ public class UpdatedInstructorResponse : IResponse
     public string NationalIdentity { get; set; }
     public string CompanyName { get; set; }
     public DateTime UpdatedDate { get; set; }
+    public string ImageUrl { get; set; }
 }
