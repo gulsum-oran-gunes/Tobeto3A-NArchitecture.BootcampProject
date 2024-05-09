@@ -11,7 +11,7 @@ public class ApplicationEntity : Entity<int>
 {
     public Guid ApplicantId { get; set; }
     public int BootcampId { get; set; }
-    public int ApplicationStateId { get; set; }
+    public int ApplicationStateId { get; set; } = 1;
 
     public virtual Bootcamp? Bootcamp { get; set; }
     public virtual Applicant? Applicant { get; set; }

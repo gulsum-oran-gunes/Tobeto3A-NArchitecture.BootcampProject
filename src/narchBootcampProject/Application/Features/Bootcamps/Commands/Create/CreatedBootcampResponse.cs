@@ -10,4 +10,6 @@ public class CreatedBootcampResponse : IResponse
     public int BootcampStateId { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
+    public string Detail { get; set; }
+    public DateTime Deadline { get; set; }
 }

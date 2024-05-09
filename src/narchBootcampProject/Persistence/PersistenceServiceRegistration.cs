@@ -39,6 +39,8 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IQuizRepository, QuizRepository>();
         services.AddScoped<IQuizQuestionRepository, QuizQuestionRepository>();
         services.AddScoped<IResultRepository, ResultRepository>();
+        services.AddScoped<IBootcampContentRepository, BootcampContentRepository>();
+        services.AddScoped<IApplicantBootcampContentRepository, ApplicantBootcampContentRepository>();
         return services;
     }
 }

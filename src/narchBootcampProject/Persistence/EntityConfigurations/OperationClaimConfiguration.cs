@@ -19,6 +19,8 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
+using Application.Features.BootcampContents.Constants;
+using Application.Features.ApplicantBootcampContents.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -321,6 +323,34 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         #endregion
 
         featureOperationClaims.Add(new() { Id = ++lastId, Name = QuizsOperationClaims.Finish });
+        
+        #region BootcampContents
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = BootcampContentsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = BootcampContentsOperationClaims.Read },
+                new() { Id = ++lastId, Name = BootcampContentsOperationClaims.Write },
+                new() { Id = ++lastId, Name = BootcampContentsOperationClaims.Create },
+                new() { Id = ++lastId, Name = BootcampContentsOperationClaims.Update },
+                new() { Id = ++lastId, Name = BootcampContentsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region ApplicantBootcampContents
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Read },
+                new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Write },
+                new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Create },
+                new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Update },
+                new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

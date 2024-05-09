@@ -14,6 +14,8 @@ public class Bootcamp : Entity<int>
     public string Name { get; set; }
     public Guid InstructorId { get; set; }
     public int BootcampStateId { get; set; }
+    public string? Detail {  get; set; }
+    public DateTime? Deadline {  get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public virtual ICollection<BootcampImage> BootcampImages { get; set; }
@@ -34,11 +36,13 @@ public class Bootcamp : Entity<int>
     public virtual Instructor? Instructor { get; set; }
     public virtual BootcampState? BootcampState { get; set; }
 
-    public Bootcamp(string name, Guid ınstructorId, int bootcampStateId, DateTime startDate, DateTime endDate)
+    public Bootcamp(string name, Guid ınstructorId, int bootcampStateId, string? detail, DateTime? deadline, DateTime startDate, DateTime endDate)
     {
         Name = name;
         InstructorId = ınstructorId;
         BootcampStateId = bootcampStateId;
+        Detail = detail;
+        Deadline = deadline;
         StartDate = startDate;
         EndDate = endDate;
     }

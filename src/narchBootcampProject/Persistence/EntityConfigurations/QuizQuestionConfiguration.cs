@@ -21,5 +21,6 @@ public class QuizQuestionConfiguration : IEntityTypeConfiguration<QuizQuestion>
         builder.HasOne(x => x.Question);
 
         builder.HasQueryFilter(qq => !qq.DeletedDate.HasValue);
+
     }
 }

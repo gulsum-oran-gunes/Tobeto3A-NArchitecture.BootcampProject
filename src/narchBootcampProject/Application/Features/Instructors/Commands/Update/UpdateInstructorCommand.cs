@@ -28,6 +28,7 @@ public class UpdateInstructorCommand
     public DateTime DateOfBirth { get; set; }
     public string NationalIdentity { get; set; }
     public string CompanyName { get; set; }
+    public string ImageUrl { get; set; }
 
     public string[] Roles => [Admin, Write, InstructorsOperationClaims.Update];
 

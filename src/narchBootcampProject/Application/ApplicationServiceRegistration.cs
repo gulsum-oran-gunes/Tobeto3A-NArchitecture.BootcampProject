@@ -33,6 +33,8 @@ using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
+using Application.Services.BootcampContents;
+using Application.Services.ApplicantBootcampContents;
 
 namespace Application;
 
@@ -89,6 +91,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IQuizQuestionService, QuizQuestionManager>();
         services.AddScoped<IResultService, ResultManager>();
         services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
+        services.AddScoped<IBootcampContentService, BootcampContentManager>();
+        services.AddScoped<IApplicantBootcampContentService, ApplicantBootcampContentManager>();
         return services;
     }
 

@@ -13,4 +13,5 @@ public class CreatedInstructorResponse : IResponse
     public string NationalIdentity { get; set; }
     public string CompanyName { get; set; }
     public DateTime CreatedDate { get; set; }
+    public string ImageUrl { get; set; }
 }
