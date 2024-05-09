@@ -11,7 +11,7 @@ using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.BootcampImages;
 
-public class BootcampImageManager : IBootcampImageService
+public class BootcampImageManager : IBootcampImageService, ICacheRemoverRequest
 {
 
 
@@ -19,6 +19,9 @@ public class BootcampImageManager : IBootcampImageService
     private readonly BootcampImageBusinessRules _bootcampImageBusinessRules;
     private readonly ImageServiceBase _imageService;
 
+    public bool BypassCache { get; }
+    public string? CacheKey { get; }
+    public string[]? CacheGroupKey => ["GetBootcampImages"];
 
     public BootcampImageManager(
         IBootcampImageRepository bootcampImageRepository,

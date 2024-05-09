@@ -1,5 +1,4 @@
 using Application.Features.ApplicationEntities.Constants;
-using Application.Features.ApplicationEntities.Constants;
 using Application.Features.ApplicationEntities.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -57,7 +56,7 @@ public class DeleteApplicationEntityCommand
             );
             await _applicationEntityBusinessRules.ApplicationEntityShouldExistWhenSelected(applicationEntity);
 
-            await _applicationEntityRepository.DeleteAsync(applicationEntity!);
+            await _applicationEntityRepository.DeleteAsync(applicationEntity!, true);
 
             DeletedApplicationEntityResponse response = _mapper.Map<DeletedApplicationEntityResponse>(applicationEntity);
             return response;

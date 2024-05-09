@@ -73,9 +73,7 @@ public class ApplicantRegisterCommand : IRequest<RegisteredResponse>, ICacheRemo
                 {
                     FirstName = request.ApplicantRegisterDto.FirstName,
                     LastName = request.ApplicantRegisterDto.LastName,
-                    NationalIdentity = request.ApplicantRegisterDto.NationalIdentity,
-                    DateOfBirth = request.ApplicantRegisterDto.DateOfBirth,
-                    About = request.ApplicantRegisterDto.About,
+                  
                     UserName = request.ApplicantRegisterDto.UserName,
                     Email = request.ApplicantRegisterDto.Email,
                     PasswordHash = passwordHash,
