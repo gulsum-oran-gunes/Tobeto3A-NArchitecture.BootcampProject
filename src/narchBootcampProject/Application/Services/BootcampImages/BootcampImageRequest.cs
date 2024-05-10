@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace Application.Services.BootcampImages;
 
-public class BootcampImageRequest: ICacheRemoverRequest 
+public class BootcampImageRequest 
 {
     public int BootcampId { get; set; }
     public string ImagePath { get; set; }
-    public bool BypassCache { get; }
-    public string? CacheKey { get; }
-    public string[]? CacheGroupKey => ["GetBootcampImages"];
-  
 }

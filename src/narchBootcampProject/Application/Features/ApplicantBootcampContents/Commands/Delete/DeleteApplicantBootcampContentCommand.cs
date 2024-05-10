@@ -42,7 +42,7 @@ public class DeleteApplicantBootcampContentCommand : IRequest<DeletedApplicantBo
             ApplicantBootcampContent? applicantBootcampContent = await _applicantBootcampContentRepository.GetAsync(predicate: abc => abc.Id == request.Id, cancellationToken: cancellationToken);
             await _applicantBootcampContentBusinessRules.ApplicantBootcampContentShouldExistWhenSelected(applicantBootcampContent);
 
-            await _applicantBootcampContentRepository.DeleteAsync(applicantBootcampContent!);
+            await _applicantBootcampContentRepository.DeleteAsync(applicantBootcampContent!, true);
 
             DeletedApplicantBootcampContentResponse response = _mapper.Map<DeletedApplicantBootcampContentResponse>(applicantBootcampContent);
             return response;

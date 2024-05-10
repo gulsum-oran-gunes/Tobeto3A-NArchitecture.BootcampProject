@@ -3,6 +3,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
@@ -46,7 +47,8 @@ public class GetListBootcampImageQuery
             IPaginate<BootcampImage> bootcampImages = await _bootcampImageRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: i => i.Include(i => i.Bootcamp)
             );
 
             GetListResponse<GetListBootcampImageListItemDto> response = _mapper.Map<

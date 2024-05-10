@@ -6,6 +6,7 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.BootcampContents.Constants.BootcampContentsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.BootcampContents.Queries.GetById;
 
@@ -30,8 +31,10 @@ public class GetByIdBootcampContentQuery : IRequest<GetByIdBootcampContentRespon
 
         public async Task<GetByIdBootcampContentResponse> Handle(GetByIdBootcampContentQuery request, CancellationToken cancellationToken)
         {
-            BootcampContent? bootcampContent = await _bootcampContentRepository.GetAsync(predicate: bc => bc.Id == request.Id, cancellationToken: cancellationToken);
+            BootcampContent? bootcampContent = await _bootcampContentRepository.GetAsync(predicate: bc => bc.Id == request.Id, cancellationToken: cancellationToken,
+                include: x=> x.Include(b => b.Bootcamp)) ;
             await _bootcampContentBusinessRules.BootcampContentShouldExistWhenSelected(bootcampContent);
+
 
             GetByIdBootcampContentResponse response = _mapper.Map<GetByIdBootcampContentResponse>(bootcampContent);
             return response;

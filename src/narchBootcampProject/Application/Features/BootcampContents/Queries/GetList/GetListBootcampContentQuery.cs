@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.BootcampContents.Constants.BootcampContentsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.BootcampContents.Queries.GetList;
 
@@ -39,7 +40,8 @@ public class GetListBootcampContentQuery : IRequest<GetListResponse<GetListBootc
             IPaginate<BootcampContent> bootcampContents = await _bootcampContentRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: b => b.Include(b => b.Bootcamp)
             );
 
             GetListResponse<GetListBootcampContentListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampContentListItemDto>>(bootcampContents);
