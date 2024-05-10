@@ -29,11 +29,10 @@ public class BootcampImagesController : BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] UpdateBootcampImageCommand updateBootcampImageCommand)
+    public async Task<IActionResult> Update(IFormFile file, [FromForm] UpdateBootcampImageRequest updateRequest)
     {
-        UpdatedBootcampImageResponse response = await Mediator.Send(updateBootcampImageCommand);
-
-        return Ok(response);
+        var result = await _bootcampImageService.Update(file, updateRequest);
+        return Ok(result);
     }
 
     [HttpDelete("{id}")]

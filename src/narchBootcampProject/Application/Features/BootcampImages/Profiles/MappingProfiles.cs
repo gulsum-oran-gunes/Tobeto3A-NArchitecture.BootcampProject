@@ -3,6 +3,7 @@ using Application.Features.BootcampImages.Commands.Delete;
 using Application.Features.BootcampImages.Commands.Update;
 using Application.Features.BootcampImages.Queries.GetById;
 using Application.Features.BootcampImages.Queries.GetList;
+using Application.Services.BootcampImages;
 using AutoMapper;
 using Domain.Entities;
 using NArchitecture.Core.Application.Responses;
@@ -23,5 +24,6 @@ public class MappingProfiles : Profile
         CreateMap<BootcampImage, GetByIdBootcampImageResponse>().ReverseMap();
         CreateMap<BootcampImage, GetListBootcampImageListItemDto>().ReverseMap();
         CreateMap<IPaginate<BootcampImage>, GetListResponse<GetListBootcampImageListItemDto>>().ReverseMap();
+        CreateMap<UpdateBootcampImageRequest, BootcampImage>().ReverseMap();
     }
 }
