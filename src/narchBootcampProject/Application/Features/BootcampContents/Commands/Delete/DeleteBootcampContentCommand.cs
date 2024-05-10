@@ -42,7 +42,7 @@ public class DeleteBootcampContentCommand : IRequest<DeletedBootcampContentRespo
             BootcampContent? bootcampContent = await _bootcampContentRepository.GetAsync(predicate: bc => bc.Id == request.Id, cancellationToken: cancellationToken);
             await _bootcampContentBusinessRules.BootcampContentShouldExistWhenSelected(bootcampContent);
 
-            await _bootcampContentRepository.DeleteAsync(bootcampContent!);
+            await _bootcampContentRepository.DeleteAsync(bootcampContent!, true);
 
             DeletedBootcampContentResponse response = _mapper.Map<DeletedBootcampContentResponse>(bootcampContent);
             return response;
