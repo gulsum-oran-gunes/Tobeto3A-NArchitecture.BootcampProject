@@ -62,7 +62,7 @@ public class BootcampImageManager : IBootcampImageService, ICacheRemoverRequest
     {
         BootcampImage bootcampImage = await _bootcampImageRepository.GetAsync(x => x.Id == request.Id);
         bootcampImage = _mapper.Map(request, bootcampImage);
-        bootcampImage.ImagePath = await _imageService.UploadAsync(file);
+        bootcampImage.ImagePath = await _imageService.UpdateAsync(file, bootcampImage.ImagePath);
         await _bootcampImageRepository.UpdateAsync(bootcampImage);
         return bootcampImage;
     }
