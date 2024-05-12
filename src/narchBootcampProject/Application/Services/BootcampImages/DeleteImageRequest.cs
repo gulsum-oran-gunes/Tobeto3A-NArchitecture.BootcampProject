@@ -1,14 +1,11 @@
-﻿using NArchitecture.Core.Application.Pipelines.Caching;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Services.BootcampImages;
-
-public class BootcampImageRequest 
+public class DeleteImageRequest
 {
-    public int BootcampId { get; set; }
-   
+    public int Id { get; set; }
 }

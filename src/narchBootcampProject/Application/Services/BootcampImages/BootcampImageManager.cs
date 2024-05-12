@@ -1,5 +1,7 @@
 using System.Linq.Expressions;
+using Application.Features.BootcampImages.Commands.Delete;
 using Application.Features.BootcampImages.Rules;
+using Application.Features.Bootcamps.Commands.Delete;
 using Application.Features.Bootcamps.Commands.Update;
 using Application.Services.ImageService;
 using Application.Services.Repositories;
@@ -53,7 +55,7 @@ public class BootcampImageManager : IBootcampImageService, ICacheRemoverRequest
 
     public async Task<BootcampImage> Add(IFormFile file, BootcampImageRequest request)
     {
-        BootcampImage bootcampImage = new BootcampImage() { BootcampId = request.BootcampId, ImagePath = request.ImagePath, };
+        BootcampImage bootcampImage = new BootcampImage() { BootcampId = request.BootcampId };
         bootcampImage.ImagePath = await _imageService.UploadAsync(file);
         return await _bootcampImageRepository.AddAsync(bootcampImage);
     }
@@ -67,9 +69,16 @@ public class BootcampImageManager : IBootcampImageService, ICacheRemoverRequest
         return bootcampImage;
     }
 
-    public Task<BootcampImage> Delete(BootcampImage BootcampImage)
+    public async Task<DeletedBootcampImageResponse> Delete(int id)
     {
-        throw new NotImplementedException();
+        BootcampImage bootcampImage =  await _bootcampImageRepository.GetAsync(x => x.Id == id);
+        await _imageService.DeleteAsync(bootcampImage.ImagePath);
+        await _bootcampImageRepository.DeleteAsync(bootcampImage, true);
+
+        DeletedBootcampImageResponse response = _mapper.Map<DeletedBootcampImageResponse>(bootcampImage);
+        return response;
+        
+
     }
 
     public Task<List<BootcampImage>> GetImagesByBootcampId(Guid id)

@@ -36,9 +36,9 @@ public class BootcampImagesController : BaseController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete([FromRoute] int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        DeletedBootcampImageResponse response = await Mediator.Send(new DeleteBootcampImageCommand { Id = id });
+        var response = await _bootcampImageService.Delete(id);
 
         return Ok(response);
     }
