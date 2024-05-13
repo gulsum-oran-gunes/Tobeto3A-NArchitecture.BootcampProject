@@ -14,5 +14,5 @@ public interface IBootcampImageService
     Task<BootcampImage> Add(IFormFile file, BootcampImageRequest request);
     Task<BootcampImage> Update(IFormFile file, UpdateBootcampImageRequest request);
     Task<DeletedBootcampImageResponse> Delete(int id);
-    Task<List<BootcampImage>> GetImagesByBootcampId(Guid id);
+    Task<List<BootcampImage>> GetImagesByBootcampId(int id);
 }

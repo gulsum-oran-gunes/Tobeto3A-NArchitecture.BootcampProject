@@ -21,6 +21,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
 using Application.Features.BootcampContents.Constants;
 using Application.Features.ApplicantBootcampContents.Constants;
+using Application.Features.InstructorImages.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -347,6 +348,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Create },
                 new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Update },
                 new() { Id = ++lastId, Name = ApplicantBootcampContentsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region InstructorImages
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = InstructorImagesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = InstructorImagesOperationClaims.Read },
+                new() { Id = ++lastId, Name = InstructorImagesOperationClaims.Write },
+                new() { Id = ++lastId, Name = InstructorImagesOperationClaims.Create },
+                new() { Id = ++lastId, Name = InstructorImagesOperationClaims.Update },
+                new() { Id = ++lastId, Name = InstructorImagesOperationClaims.Delete },
             ]
         );
         #endregion

@@ -81,8 +81,12 @@ public class BootcampImageManager : IBootcampImageService, ICacheRemoverRequest
 
     }
 
-    public Task<List<BootcampImage>> GetImagesByBootcampId(Guid id)
+   
+
+    public Task<List<BootcampImage>> GetImagesByBootcampId(int id)
     {
         throw new NotImplementedException();
     }
+
+
 }

@@ -41,6 +41,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IResultRepository, ResultRepository>();
         services.AddScoped<IBootcampContentRepository, BootcampContentRepository>();
         services.AddScoped<IApplicantBootcampContentRepository, ApplicantBootcampContentRepository>();
+        services.AddScoped<IInstructorImageRepository, InstructorImageRepository>();
         return services;
     }
 }

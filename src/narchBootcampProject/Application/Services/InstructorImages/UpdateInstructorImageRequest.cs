@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.BootcampImages;
-public class DeleteImageRequest
+namespace Application.Services.InstructorImages;
+public class UpdateInstructorImageRequest
 {
     public int Id { get; set; }
+    public Guid InstructorId { get; set; }
 }

@@ -29,6 +29,7 @@ public class BaseDbContext : DbContext
     public DbSet<Result> Results { get; set; }
     public DbSet<BootcampContent> BootcampContents { get; set; }
     public DbSet<ApplicantBootcampContent> ApplicantBootcampContents { get; set; }
+    public DbSet<InstructorImage> InstructorImages { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)
