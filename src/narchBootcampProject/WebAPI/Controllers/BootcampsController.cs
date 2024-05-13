@@ -4,9 +4,13 @@ using Application.Features.Bootcamps.Commands.Update;
 using Application.Features.Bootcamps.Queries.GetById;
 using Application.Features.Bootcamps.Queries.GetList;
 using Application.Features.Bootcamps.Queries.GetListByInstructorId;
+using Application.Features.Bootcamps.Queries.GetListDynamic;
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
+using NArchitecture.Core.Persistence.Dynamic;
+using static Google.Apis.YouTube.v3.VideosResource;
 
 namespace WebAPI.Controllers;
 
@@ -59,4 +63,16 @@ public class BootcampsController : BaseController
         var result = await Mediator.Send(query);
         return Ok(result);
     }
+
+    [HttpPost("dynamic")]
+    public async Task<IActionResult> GetListDynamic([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamic)
+    {
+        GetListBootcampDynamicQuery bootcampDynamicQuery = new() { PageRequest = pageRequest, Dynamic = dynamic };
+        GetListResponse<GetListBootcampListItemDto> response = await Mediator.Send(bootcampDynamicQuery);
+        return Ok(response);
+
+    }
+
+
+
 }
