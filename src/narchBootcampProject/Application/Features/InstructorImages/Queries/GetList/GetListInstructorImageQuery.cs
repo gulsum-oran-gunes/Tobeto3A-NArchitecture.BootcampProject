@@ -9,10 +9,11 @@ using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.InstructorImages.Constants.InstructorImagesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.InstructorImages.Queries.GetList;
 
-public class GetListInstructorImageQuery : IRequest<GetListResponse<GetListInstructorImageListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListInstructorImageQuery : IRequest<GetListResponse<GetListInstructorImageListItemDto>>, ISecuredRequest //ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
@@ -39,7 +40,8 @@ public class GetListInstructorImageQuery : IRequest<GetListResponse<GetListInstr
             IPaginate<InstructorImage> instructorImages = await _instructorImageRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include:x=>x.Include(x=>x.Instructor)
             );
 
             GetListResponse<GetListInstructorImageListItemDto> response = _mapper.Map<GetListResponse<GetListInstructorImageListItemDto>>(instructorImages);
