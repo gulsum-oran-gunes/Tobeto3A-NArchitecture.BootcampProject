@@ -6,6 +6,7 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.InstructorImages.Constants.InstructorImagesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.InstructorImages.Queries.GetById;
 
@@ -30,7 +31,8 @@ public class GetByIdInstructorImageQuery : IRequest<GetByIdInstructorImageRespon
 
         public async Task<GetByIdInstructorImageResponse> Handle(GetByIdInstructorImageQuery request, CancellationToken cancellationToken)
         {
-            InstructorImage? instructorImage = await _instructorImageRepository.GetAsync(predicate: ii => ii.Id == request.Id, cancellationToken: cancellationToken);
+            InstructorImage? instructorImage = await _instructorImageRepository.GetAsync(predicate: ii => ii.Id == request.Id, cancellationToken: cancellationToken, 
+                include:x=>x.Include(x=>x.Instructor));
             await _instructorImageBusinessRules.InstructorImageShouldExistWhenSelected(instructorImage);
 
             GetByIdInstructorImageResponse response = _mapper.Map<GetByIdInstructorImageResponse>(instructorImage);
