@@ -4,6 +4,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.Instructors.Constants.InstructorsOperationClaims;
 
@@ -36,7 +37,8 @@ public class GetByIdInstructorQuery : IRequest<GetByIdInstructorResponse>, ISecu
         {
             Instructor? instructor = await _instructorRepository.GetAsync(
                 predicate: i => i.Id == request.Id,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: p => p.Include(x => x.InstructorImages)
             );
             await _instructorBusinessRules.InstructorShouldExistWhenSelected(instructor);
 

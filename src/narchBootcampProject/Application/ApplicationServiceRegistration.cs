@@ -35,6 +35,7 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using Application.Services.BootcampContents;
 using Application.Services.ApplicantBootcampContents;
+using Application.Services.InstructorImages;
 
 namespace Application;
 
@@ -93,6 +94,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
         services.AddScoped<IBootcampContentService, BootcampContentManager>();
         services.AddScoped<IApplicantBootcampContentService, ApplicantBootcampContentManager>();
+        services.AddScoped<IInstructorImageService, InstructorImageManager>();
         return services;
     }
 
