@@ -8,6 +8,7 @@ using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
+using NArchitecture.Core.Security.Hashing;
 using static Application.Features.Applicants.Constants.ApplicantsOperationClaims;
 
 namespace Application.Features.Applicants.Commands.Update;
@@ -28,6 +29,7 @@ public class UpdateApplicantCommand
     public DateTime DateOfBirth { get; set; }
     public string NationalIdentity { get; set; }
     public string About { get; set; }
+    public string Password { get; set; }
 
     public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Update];
 
@@ -54,13 +56,21 @@ public class UpdateApplicantCommand
 
         public async Task<UpdatedApplicantResponse> Handle(UpdateApplicantCommand request, CancellationToken cancellationToken)
         {
+            HashingHelper.CreatePasswordHash(
+               request.Password,
+               passwordHash: out byte[] passwordHash,
+               passwordSalt: out byte[] passwordSalt
+           );
+
             Applicant? applicant = await _applicantRepository.GetAsync(
                 predicate: a => a.Id == request.Id,
                 cancellationToken: cancellationToken
             );
+            
             await _applicantBusinessRules.ApplicantShouldExistWhenSelected(applicant);
             applicant = _mapper.Map(request, applicant);
-
+            applicant.PasswordHash = passwordHash;
+            applicant.PasswordSalt = passwordSalt;
             await _applicantRepository.UpdateAsync(applicant!);
 
             UpdatedApplicantResponse response = _mapper.Map<UpdatedApplicantResponse>(applicant);
