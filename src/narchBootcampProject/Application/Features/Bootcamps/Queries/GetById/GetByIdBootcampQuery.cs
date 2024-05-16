@@ -10,11 +10,11 @@ using static Application.Features.Bootcamps.Constants.BootcampsOperationClaims;
 
 namespace Application.Features.Bootcamps.Queries.GetById;
 
-public class GetByIdBootcampQuery : IRequest<GetByIdBootcampResponse>, ISecuredRequest
+public class GetByIdBootcampQuery : IRequest<GetByIdBootcampResponse>/*, ISecuredRequest*/
 {
     public int Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    //public string[] Roles => [Admin, Read];
 
     public class GetByIdBootcampQueryHandler : IRequestHandler<GetByIdBootcampQuery, GetByIdBootcampResponse>
     {

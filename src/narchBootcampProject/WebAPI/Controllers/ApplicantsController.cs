@@ -3,6 +3,7 @@ using Application.Features.Applicants.Commands.Delete;
 using Application.Features.Applicants.Commands.Update;
 using Application.Features.Applicants.Queries.GetById;
 using Application.Features.Applicants.Queries.GetList;
+using Application.Features.Users.Commands.UpdateFromAuth;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
@@ -50,5 +51,13 @@ public class ApplicantsController : BaseController
         GetListApplicantQuery getListApplicantQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListApplicantListItemDto> response = await Mediator.Send(getListApplicantQuery);
         return Ok(response);
+    }
+
+    [HttpPut("Password")]
+    public async Task<IActionResult> UpdateAsync([FromBody] UpdateApplicantPasswordCommand request)
+    {
+        request.Id = getUserIdFromRequest();
+        UpdateApplicantPasswordResponse result = await Mediator.Send(request);
+        return Ok(result);
     }
 }

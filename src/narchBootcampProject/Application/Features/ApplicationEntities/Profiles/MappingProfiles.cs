@@ -3,6 +3,7 @@ using Application.Features.ApplicationEntities.Commands.Delete;
 using Application.Features.ApplicationEntities.Commands.Update;
 using Application.Features.ApplicationEntities.Queries.GetById;
 using Application.Features.ApplicationEntities.Queries.GetList;
+using Application.Features.Bootcamps.Queries.GetList;
 using AutoMapper;
 using Domain.Entities;
 using NArchitecture.Core.Application.Responses;
@@ -21,7 +22,18 @@ public class MappingProfiles : Profile
         CreateMap<ApplicationEntity, DeleteApplicationEntityCommand>().ReverseMap();
         CreateMap<ApplicationEntity, DeletedApplicationEntityResponse>().ReverseMap();
         CreateMap<ApplicationEntity, GetByIdApplicationEntityResponse>().ReverseMap();
-        CreateMap<ApplicationEntity, GetListApplicationEntityListItemDto>().ReverseMap();
+
+        CreateMap<ApplicationEntity, GetListApplicationEntityListItemDto>()
+        .ForMember(q => q.InstructorFirstName, opt => opt.MapFrom(q => q.Bootcamp.Instructor.FirstName))
+        .ForMember(q => q.InstructorId, opt => opt.MapFrom(q => q.Bootcamp.Instructor.Id))
+        .ForMember(q => q.InstructorLastName, opt => opt.MapFrom(q => q.Bootcamp.Instructor.LastName))
+        .ForMember(q => q.BootcampStateId, opt => opt.MapFrom(q => q.Bootcamp.BootcampStateId))
+        .ForMember(q => q.BootcampImageId, opt => opt.MapFrom(q => q.Bootcamp.BootcampImages.FirstOrDefault().Id))
+        .ForMember(q => q.BootcampImagePath, opt => opt.MapFrom(q => q.Bootcamp.BootcampImages.FirstOrDefault().ImagePath));
+       
+
+
+
         CreateMap<IPaginate<ApplicationEntity>, GetListResponse<GetListApplicationEntityListItemDto>>().ReverseMap();
     }
 }

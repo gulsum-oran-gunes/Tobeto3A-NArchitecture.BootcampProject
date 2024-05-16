@@ -8,13 +8,14 @@ using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
+using NArchitecture.Core.Security.Hashing;
 using static Application.Features.Applicants.Constants.ApplicantsOperationClaims;
 
 namespace Application.Features.Applicants.Commands.Update;
 
 public class UpdateApplicantCommand
     : IRequest<UpdatedApplicantResponse>,
-        ISecuredRequest,
+        //ISecuredRequest,
         ICacheRemoverRequest,
         ILoggableRequest,
         ITransactionalRequest
@@ -24,12 +25,13 @@ public class UpdateApplicantCommand
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
+    public DateTime? DateOfBirth { get; set; }
+    public string? NationalIdentity { get; set; }
+    public string? About { get; set; }
 
-    public DateTime DateOfBirth { get; set; }
-    public string NationalIdentity { get; set; }
-    public string About { get; set; }
+   
 
-    public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Update];
+    //public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Update];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }
@@ -58,6 +60,7 @@ public class UpdateApplicantCommand
                 predicate: a => a.Id == request.Id,
                 cancellationToken: cancellationToken
             );
+
             await _applicantBusinessRules.ApplicantShouldExistWhenSelected(applicant);
             applicant = _mapper.Map(request, applicant);
 
@@ -65,6 +68,9 @@ public class UpdateApplicantCommand
 
             UpdatedApplicantResponse response = _mapper.Map<UpdatedApplicantResponse>(applicant);
             return response;
+
         }
+
     }
+
 }

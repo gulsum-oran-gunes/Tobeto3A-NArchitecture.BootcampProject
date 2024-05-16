@@ -23,5 +23,7 @@ public class MappingProfiles : Profile
         CreateMap<Applicant, GetByIdApplicantResponse>().ReverseMap();
         CreateMap<Applicant, GetListApplicantListItemDto>().ReverseMap();
         CreateMap<IPaginate<Applicant>, GetListResponse<GetListApplicantListItemDto>>().ReverseMap();
+        CreateMap<Applicant, UpdateApplicantPasswordCommand>().ReverseMap();
+        CreateMap<Applicant, UpdateApplicantPasswordResponse>().ReverseMap();
     }
 }

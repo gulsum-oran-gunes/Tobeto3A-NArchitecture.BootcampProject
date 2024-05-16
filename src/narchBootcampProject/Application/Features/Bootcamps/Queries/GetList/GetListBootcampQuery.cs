@@ -13,16 +13,16 @@ using static Application.Features.Bootcamps.Constants.BootcampsOperationClaims;
 
 namespace Application.Features.Bootcamps.Queries.GetList;
 
-public class GetListBootcampQuery : IRequest<GetListResponse<GetListBootcampListItemDto>>, ICachableRequest
+public class GetListBootcampQuery : IRequest<GetListResponse<GetListBootcampListItemDto>>/*, ICachableRequest*/
 {
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    //public string[] Roles => [Admin, Read];
 
-    public bool BypassCache { get; }
-    public string? CacheKey => $"GetListBootcamps({PageRequest.PageIndex},{PageRequest.PageSize})";
-    public string? CacheGroupKey => "GetBootcamps";
-    public TimeSpan? SlidingExpiration { get; }
+    //public bool BypassCache { get; }
+    //public string? CacheKey => $"GetListBootcamps({PageRequest.PageIndex},{PageRequest.PageSize})";
+    //public string? CacheGroupKey => "GetBootcamps";
+    //public TimeSpan? SlidingExpiration { get; }
 
     public class GetListBootcampQueryHandler : IRequestHandler<GetListBootcampQuery, GetListResponse<GetListBootcampListItemDto>>
     {

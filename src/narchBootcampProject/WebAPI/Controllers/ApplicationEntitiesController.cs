@@ -3,9 +3,13 @@ using Application.Features.ApplicationEntities.Commands.Delete;
 using Application.Features.ApplicationEntities.Commands.Update;
 using Application.Features.ApplicationEntities.Queries.GetById;
 using Application.Features.ApplicationEntities.Queries.GetList;
+using Application.Features.ApplicationEntities.Queries.GetListDynamic;
+using Application.Features.Bootcamps.Queries.GetList;
+using Application.Features.Bootcamps.Queries.GetListDynamic;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
+using NArchitecture.Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -50,5 +54,14 @@ public class ApplicationEntitiesController : BaseController
         GetListApplicationEntityQuery getListApplicationEntityQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListApplicationEntityListItemDto> response = await Mediator.Send(getListApplicationEntityQuery);
         return Ok(response);
+    }
+
+    [HttpPost("dynamic")]
+    public async Task<IActionResult> GetListDynamic([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamic)
+    {
+        GetListApplicationDynamicQuery applicationDynamicQuery = new() { PageRequest = pageRequest, Dynamic = dynamic };
+        GetListResponse<GetListApplicationEntityListItemDto> response = await Mediator.Send(applicationDynamicQuery);
+        return Ok(response);
+
     }
 }
