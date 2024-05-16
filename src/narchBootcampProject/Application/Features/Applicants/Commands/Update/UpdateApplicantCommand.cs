@@ -15,7 +15,7 @@ namespace Application.Features.Applicants.Commands.Update;
 
 public class UpdateApplicantCommand
     : IRequest<UpdatedApplicantResponse>,
-        ISecuredRequest,
+        //ISecuredRequest,
         ICacheRemoverRequest,
         ILoggableRequest,
         ITransactionalRequest
@@ -25,13 +25,13 @@ public class UpdateApplicantCommand
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
+    public DateTime? DateOfBirth { get; set; }
+    public string? NationalIdentity { get; set; }
+    public string? About { get; set; }
 
-    public DateTime DateOfBirth { get; set; }
-    public string NationalIdentity { get; set; }
-    public string About { get; set; }
-    public string Password { get; set; }
+   
 
-    public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Update];
+    //public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Update];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }
@@ -56,25 +56,21 @@ public class UpdateApplicantCommand
 
         public async Task<UpdatedApplicantResponse> Handle(UpdateApplicantCommand request, CancellationToken cancellationToken)
         {
-            HashingHelper.CreatePasswordHash(
-               request.Password,
-               passwordHash: out byte[] passwordHash,
-               passwordSalt: out byte[] passwordSalt
-           );
-
             Applicant? applicant = await _applicantRepository.GetAsync(
                 predicate: a => a.Id == request.Id,
                 cancellationToken: cancellationToken
             );
-            
+
             await _applicantBusinessRules.ApplicantShouldExistWhenSelected(applicant);
             applicant = _mapper.Map(request, applicant);
-            applicant.PasswordHash = passwordHash;
-            applicant.PasswordSalt = passwordSalt;
+
             await _applicantRepository.UpdateAsync(applicant!);
 
             UpdatedApplicantResponse response = _mapper.Map<UpdatedApplicantResponse>(applicant);
             return response;
+
         }
+
     }
+
 }
