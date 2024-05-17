@@ -6,6 +6,8 @@ using Application.Features.BootcampContents.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Bootcamps.Queries.GetListByInstructorId;
+using Application.Features.BootcampContents.Queries;
 
 namespace WebAPI.Controllers;
 
@@ -50,5 +52,13 @@ public class BootcampContentsController : BaseController
         GetListBootcampContentQuery getListBootcampContentQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListBootcampContentListItemDto> response = await Mediator.Send(getListBootcampContentQuery);
         return Ok(response);
+    }
+
+    [HttpGet("getbootcampcontentbybootcampid")]
+    public async Task<IActionResult> GetBootcampContentByBootcampId([FromQuery] PageRequest pageRequest, int bootcampId, Guid applicantId, int bootcampContentId )
+    {
+        GetBootcampContentByBootcampIdQuery query = new() { PageRequest = pageRequest, BootcampId = bootcampId, ApplicantId=applicantId, BootcampContentId=bootcampContentId  };
+        var result = await Mediator.Send(query);
+        return Ok(result);
     }
 }

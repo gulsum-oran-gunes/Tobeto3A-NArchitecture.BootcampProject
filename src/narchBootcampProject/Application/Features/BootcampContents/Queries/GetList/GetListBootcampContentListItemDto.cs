@@ -9,4 +9,7 @@ public class GetListBootcampContentListItemDto : IDto
     public string BootcampName { get; set; }
     public string? VideoUrl { get; set; }
     public string? Content { get; set; }
+    public bool? HasApplicantBootcampContent { get; set; }
+   
+
 }

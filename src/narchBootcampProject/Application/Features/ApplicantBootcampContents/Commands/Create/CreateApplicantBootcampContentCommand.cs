@@ -12,7 +12,7 @@ using static Application.Features.ApplicantBootcampContents.Constants.ApplicantB
 
 namespace Application.Features.ApplicantBootcampContents.Commands.Create;
 
-public class CreateApplicantBootcampContentCommand : IRequest<CreatedApplicantBootcampContentResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateApplicantBootcampContentCommand : IRequest<CreatedApplicantBootcampContentResponse>/*, ISecuredRequest*/, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid ApplicantId { get; set; }
     public int BootcampContentId { get; set; }

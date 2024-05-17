@@ -10,15 +10,14 @@ using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.BootcampContents.Constants.BootcampContentsOperationClaims;
 using Microsoft.EntityFrameworkCore;
+using Application.Features.BootcampContents.Rules;
 
 namespace Application.Features.BootcampContents.Queries.GetList;
 
-public class GetListBootcampContentQuery : IRequest<GetListResponse<GetListBootcampContentListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListBootcampContentQuery : IRequest<GetListResponse<GetListBootcampContentListItemDto>> // ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
-
     public string[] Roles => [Admin, Read];
-
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListBootcampContents({PageRequest.PageIndex},{PageRequest.PageSize})";
     public string? CacheGroupKey => "GetBootcampContents";
@@ -28,11 +27,14 @@ public class GetListBootcampContentQuery : IRequest<GetListResponse<GetListBootc
     {
         private readonly IBootcampContentRepository _bootcampContentRepository;
         private readonly IMapper _mapper;
+        private readonly BootcampContentBusinessRules _bootcampContentBusinessRules;
 
-        public GetListBootcampContentQueryHandler(IBootcampContentRepository bootcampContentRepository, IMapper mapper)
+        public GetListBootcampContentQueryHandler(IBootcampContentRepository bootcampContentRepository, 
+            IMapper mapper, BootcampContentBusinessRules bootcampContentBusinessRules)
         {
             _bootcampContentRepository = bootcampContentRepository;
             _mapper = mapper;
+            _bootcampContentBusinessRules = bootcampContentBusinessRules;
         }
 
         public async Task<GetListResponse<GetListBootcampContentListItemDto>> Handle(GetListBootcampContentQuery request, CancellationToken cancellationToken)
@@ -43,9 +45,12 @@ public class GetListBootcampContentQuery : IRequest<GetListResponse<GetListBootc
                 cancellationToken: cancellationToken,
                 include: b => b.Include(b => b.Bootcamp)
             );
-
+           
+           
             GetListResponse<GetListBootcampContentListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampContentListItemDto>>(bootcampContents);
             return response;
+
+
         }
     }
 }

@@ -11,11 +11,15 @@ public class BootcampContentBusinessRules : BaseBusinessRules
 {
     private readonly IBootcampContentRepository _bootcampContentRepository;
     private readonly ILocalizationService _localizationService;
+    private readonly IApplicantBootcampContentRepository _applicantBootcampContentRepository;
 
-    public BootcampContentBusinessRules(IBootcampContentRepository bootcampContentRepository, ILocalizationService localizationService)
+    public BootcampContentBusinessRules(IBootcampContentRepository bootcampContentRepository,
+        ILocalizationService localizationService,
+        IApplicantBootcampContentRepository applicantBootcampContentRepository)
     {
         _bootcampContentRepository = bootcampContentRepository;
         _localizationService = localizationService;
+        _applicantBootcampContentRepository = applicantBootcampContentRepository;
     }
 
     private async Task throwBusinessException(string messageKey)
@@ -38,5 +42,17 @@ public class BootcampContentBusinessRules : BaseBusinessRules
             cancellationToken: cancellationToken
         );
         await BootcampContentShouldExistWhenSelected(bootcampContent);
+    }
+
+    public async Task<bool> HasApplicantBootcampContent(Guid? applicantId, int? bootcampContentId, CancellationToken cancellationToken)
+    {
+        var applicantBootcampContent = await _applicantBootcampContentRepository.GetAsync(
+       predicate: abc => abc.ApplicantId == applicantId && abc.BootcampContentId == bootcampContentId,
+       enableTracking: false,
+       cancellationToken: cancellationToken
+   );
+
+        // Eðer ilgili kayýt varsa true, yoksa false dön
+        return applicantBootcampContent != null;
     }
 }
