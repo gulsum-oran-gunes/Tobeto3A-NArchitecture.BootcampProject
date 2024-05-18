@@ -24,6 +24,7 @@ public class Bootcamp : Entity<int>
     public ICollection<Question> Questions { get; set; }
     [JsonIgnore]
     public ICollection<Quiz> Quizzes { get; set; }
+    public ICollection<Certificate> Certificates { get; set; }
 
     public Bootcamp()
     {
@@ -31,6 +32,7 @@ public class Bootcamp : Entity<int>
         ApplicationEntities = new HashSet<ApplicationEntity>();
         Questions = new HashSet<Question>();
         Quizzes = new HashSet<Quiz>();
+        Certificates = new HashSet<Certificate>();
     }
 
     public virtual Instructor? Instructor { get; set; }

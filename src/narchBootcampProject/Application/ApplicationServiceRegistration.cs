@@ -36,6 +36,7 @@ using NArchitecture.Core.Security.DependencyInjection;
 using Application.Services.BootcampContents;
 using Application.Services.ApplicantBootcampContents;
 using Application.Services.InstructorImages;
+using Application.Services.Certificates;
 
 namespace Application;
 
@@ -95,6 +96,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IBootcampContentService, BootcampContentManager>();
         services.AddScoped<IApplicantBootcampContentService, ApplicantBootcampContentManager>();
         services.AddScoped<IInstructorImageService, InstructorImageManager>();
+        services.AddScoped<ICertificateService, CertificateManager>();
         return services;
     }
 

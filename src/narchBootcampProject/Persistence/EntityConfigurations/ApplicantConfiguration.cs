@@ -19,6 +19,7 @@ public class ApplicantConfiguration : IEntityTypeConfiguration<Applicant>
 
         builder.HasMany(x => x.ApplicationEntities);
         builder.HasMany(x => x.ApplicantBootcampContents);
+        builder.HasMany(x => x.Certificates);
         //builder.HasQueryFilter(a => !a.DeletedDate.HasValue);
     }
 }
