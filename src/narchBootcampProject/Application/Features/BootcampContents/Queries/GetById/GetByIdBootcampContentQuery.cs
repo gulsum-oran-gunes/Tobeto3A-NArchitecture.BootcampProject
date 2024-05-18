@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.BootcampContents.Queries.GetById;
 
-public class GetByIdBootcampContentQuery : IRequest<GetByIdBootcampContentResponse>, ISecuredRequest
+public class GetByIdBootcampContentQuery : IRequest<GetByIdBootcampContentResponse> // ISecuredRequest
 {
     public int Id { get; set; }
 
