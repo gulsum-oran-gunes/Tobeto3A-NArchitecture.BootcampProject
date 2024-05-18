@@ -22,7 +22,7 @@ public class GetBootcampContentByBootcampIdQuery : IRequest<GetListResponse<GetL
     public PageRequest PageRequest { get; set; }
     public int BootcampId { get; set; }
     public Guid? ApplicantId { get; set; }
-    public int? BootcampContentId { get; set; }
+  
     //public string[] Roles => [Admin, Read];
 
     //public bool BypassCache { get; }
@@ -58,12 +58,13 @@ public class GetBootcampContentByBootcampIdQuery : IRequest<GetListResponse<GetL
                 include: b => b.Include(b => b.Bootcamp)
             );
 
-            bool hasApplicantBootcampContent = await _bootcampContentBusinessRules.HasApplicantBootcampContent(request.ApplicantId, request.BootcampContentId, cancellationToken);
-
-            Console.WriteLine(hasApplicantBootcampContent);
+           
 
             GetListResponse<GetListBootcampContentListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampContentListItemDto>>(
-                bootcampContents
+                bootcampContents,
+                 options => options.AfterMap((source, destination) => destination.Items.ToList().ForEach(
+                 item => item.HasApplicantBootcampContent =
+                    _bootcampContentBusinessRules.HasApplicantBootcampContent(request.ApplicantId, item.Id)))
             );
 
             return response;

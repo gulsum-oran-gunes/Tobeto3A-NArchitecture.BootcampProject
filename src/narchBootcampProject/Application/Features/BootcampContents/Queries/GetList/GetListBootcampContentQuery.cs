@@ -17,6 +17,7 @@ namespace Application.Features.BootcampContents.Queries.GetList;
 public class GetListBootcampContentQuery : IRequest<GetListResponse<GetListBootcampContentListItemDto>> // ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+    public Guid? ApplicantId { get; set; }
     public string[] Roles => [Admin, Read];
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListBootcampContents({PageRequest.PageIndex},{PageRequest.PageSize})";
@@ -47,7 +48,11 @@ public class GetListBootcampContentQuery : IRequest<GetListResponse<GetListBootc
             );
            
            
-            GetListResponse<GetListBootcampContentListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampContentListItemDto>>(bootcampContents);
+            GetListResponse<GetListBootcampContentListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampContentListItemDto>>(bootcampContents,
+                 options => options.AfterMap((source, destination) => destination.Items.ToList().ForEach(
+                    item => item.HasApplicantBootcampContent =
+                        _bootcampContentBusinessRules.HasApplicantBootcampContent(request.ApplicantId, item.Id)))
+                 );
             return response;
 
 

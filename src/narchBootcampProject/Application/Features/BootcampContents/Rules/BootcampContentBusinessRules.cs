@@ -44,13 +44,12 @@ public class BootcampContentBusinessRules : BaseBusinessRules
         await BootcampContentShouldExistWhenSelected(bootcampContent);
     }
 
-    public async Task<bool> HasApplicantBootcampContent(Guid? applicantId, int? bootcampContentId, CancellationToken cancellationToken)
+    public bool HasApplicantBootcampContent(Guid? applicantId, int? bootcampContentId)
     {
-        var applicantBootcampContent = await _applicantBootcampContentRepository.GetAsync(
-       predicate: abc => abc.ApplicantId == applicantId && abc.BootcampContentId == bootcampContentId,
-       enableTracking: false,
-       cancellationToken: cancellationToken
-   );
+        var applicantBootcampContent = _applicantBootcampContentRepository.Get(
+            predicate: abc => abc.ApplicantId == applicantId && abc.BootcampContentId == bootcampContentId,
+            enableTracking: false
+        );
 
         // Eðer ilgili kayýt varsa true, yoksa false dön
         return applicantBootcampContent != null;

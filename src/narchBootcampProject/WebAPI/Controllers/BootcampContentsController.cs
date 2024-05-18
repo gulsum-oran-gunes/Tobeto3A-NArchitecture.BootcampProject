@@ -49,15 +49,15 @@ public class BootcampContentsController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
     {
-        GetListBootcampContentQuery getListBootcampContentQuery = new() { PageRequest = pageRequest };
+        GetListBootcampContentQuery getListBootcampContentQuery = new() { PageRequest = pageRequest, ApplicantId = getUserIdFromRequest() };
         GetListResponse<GetListBootcampContentListItemDto> response = await Mediator.Send(getListBootcampContentQuery);
         return Ok(response);
     }
 
     [HttpGet("getbootcampcontentbybootcampid")]
-    public async Task<IActionResult> GetBootcampContentByBootcampId([FromQuery] PageRequest pageRequest, int bootcampId, Guid applicantId, int bootcampContentId )
+    public async Task<IActionResult> GetBootcampContentByBootcampId([FromQuery] PageRequest pageRequest, int bootcampId )
     {
-        GetBootcampContentByBootcampIdQuery query = new() { PageRequest = pageRequest, BootcampId = bootcampId, ApplicantId=applicantId, BootcampContentId=bootcampContentId  };
+        GetBootcampContentByBootcampIdQuery query = new() { PageRequest = pageRequest, BootcampId = bootcampId, ApplicantId = getUserIdFromRequest() };
         var result = await Mediator.Send(query);
         return Ok(result);
     }
