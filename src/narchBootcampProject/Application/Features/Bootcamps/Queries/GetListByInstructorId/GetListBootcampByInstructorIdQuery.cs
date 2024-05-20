@@ -15,7 +15,7 @@ public class GetListBootcampByInstructorIdQuery : IRequest<GetListResponse<GetLi
 {
     public PageRequest PageRequest { get; set; }
     public Guid InstructorId { get; set; }
-    public string[] Roles => [Admin, Read];
+    //public string[] Roles => [Admin, Read];
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListBootcamps({PageRequest.PageIndex},{PageRequest.PageSize})";
