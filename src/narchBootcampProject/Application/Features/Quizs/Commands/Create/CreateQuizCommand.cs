@@ -17,7 +17,7 @@ namespace Application.Features.Quizs.Commands.Create;
 
 public class CreateQuizCommand
     : IRequest<CreatedQuizResponse>,
-        ISecuredRequest,
+        //ISecuredRequest,
         ICacheRemoverRequest,
         ILoggableRequest,
         ITransactionalRequest

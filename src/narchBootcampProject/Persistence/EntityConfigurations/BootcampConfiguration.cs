@@ -28,6 +28,7 @@ public class BootcampConfiguration : IEntityTypeConfiguration<Bootcamp>
         builder.HasMany(x => x.BootcampImages);
         builder.HasMany(x => x.Questions);
         builder.HasMany(x => x.Quizzes);
+        builder.HasMany(x => x.Certificates);
         builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
     }
 }
