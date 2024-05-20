@@ -9,14 +9,15 @@ using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Certificates.Constants.CertificatesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Certificates.Queries.GetList;
 
-public class GetListCertificateQuery : IRequest<GetListResponse<GetListCertificateListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListCertificateQuery : IRequest<GetListResponse<GetListCertificateListItemDto>>, /*ISecuredRequest,*/ ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    //public string[] Roles => [Admin, Read];
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListCertificates({PageRequest.PageIndex},{PageRequest.PageSize})";
@@ -39,7 +40,9 @@ public class GetListCertificateQuery : IRequest<GetListResponse<GetListCertifica
             IPaginate<Certificate> certificates = await _certificateRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include: c => c.Include(x => x.Bootcamp)
+
             );
 
             GetListResponse<GetListCertificateListItemDto> response = _mapper.Map<GetListResponse<GetListCertificateListItemDto>>(certificates);

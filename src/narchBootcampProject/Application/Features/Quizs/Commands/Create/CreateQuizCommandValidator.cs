@@ -8,7 +8,6 @@ public class CreateQuizCommandValidator : AbstractValidator<CreateQuizCommand>
     {
         RuleFor(c => c.ApplicantId).NotEmpty();
         RuleFor(c => c.BootcampId).NotEmpty();
-        RuleFor(c => c.StartTime).NotEmpty();
-        RuleFor(c => c.EndTime).NotEmpty();
+       
     }
 }

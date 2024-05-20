@@ -6,6 +6,8 @@ using Application.Features.Certificates.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Bootcamps.Queries.GetListByInstructorId;
+using Application.Features.Certificates.Queries.GetByApplicantId;
 
 namespace WebAPI.Controllers;
 
@@ -18,7 +20,7 @@ public class CertificatesController : BaseController
     {
         CreatedCertificateResponse response = await Mediator.Send(createCertificateCommand);
 
-        return Created(uri: "", response);
+        return File(response.File, "application/pdf", "certificate.pdf");
     }
 
     [HttpPut]
@@ -51,4 +53,13 @@ public class CertificatesController : BaseController
         GetListResponse<GetListCertificateListItemDto> response = await Mediator.Send(getListCertificateQuery);
         return Ok(response);
     }
+
+    [HttpGet("getbyapplicantid")]
+    public async Task<IActionResult> GetByApplicantId([FromQuery] PageRequest pageRequest)
+    {
+        GetByApplicantIdQuery query = new() { PageRequest = pageRequest, ApplicantId = getUserIdFromRequest() };
+        var result = await Mediator.Send(query);
+        return Ok(result);
+    }
+
 }

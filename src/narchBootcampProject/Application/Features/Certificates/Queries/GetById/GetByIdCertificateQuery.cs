@@ -9,11 +9,11 @@ using static Application.Features.Certificates.Constants.CertificatesOperationCl
 
 namespace Application.Features.Certificates.Queries.GetById;
 
-public class GetByIdCertificateQuery : IRequest<GetByIdCertificateResponse>, ISecuredRequest
+public class GetByIdCertificateQuery : IRequest<GetByIdCertificateResponse>/*, ISecuredRequest*/
 {
     public int Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    //public string[] Roles => [Admin, Read];
 
     public class GetByIdCertificateQueryHandler : IRequestHandler<GetByIdCertificateQuery, GetByIdCertificateResponse>
     {

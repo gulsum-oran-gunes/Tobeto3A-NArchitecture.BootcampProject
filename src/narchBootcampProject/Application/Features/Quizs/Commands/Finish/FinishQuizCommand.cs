@@ -17,7 +17,7 @@ namespace Application.Features.Quizs.Commands.Finish;
 
 public class FinishQuizCommand
     : IRequest<FinishedQuizResponse>,
-        ISecuredRequest,
+        //ISecuredRequest,
         ICacheRemoverRequest,
         ILoggableRequest,
         ITransactionalRequest

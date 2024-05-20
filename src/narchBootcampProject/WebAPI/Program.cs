@@ -81,6 +81,9 @@ builder.Services.AddSwaggerGen(opt =>
     opt.OperationFilter<BearerSecurityRequirementOperationFilter>();
 });
 
+// required to use QuestPDF
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
