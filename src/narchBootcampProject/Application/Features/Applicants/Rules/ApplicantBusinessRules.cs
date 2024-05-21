@@ -39,4 +39,10 @@ public class ApplicantBusinessRules : BaseBusinessRules
         );
         await ApplicantShouldExistWhenSelected(applicant);
     }
+    public async Task CheckIfApplicantExists(string userName, string email)
+    {
+        var isExists = await _applicantRepository.GetAsync(applicant => applicant.UserName == userName || applicant.Email == email);
+        if (isExists is not null) throw new BusinessException(ApplicantsBusinessMessages.ApplicantExists);
+    }
+  
 }

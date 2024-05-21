@@ -39,4 +39,9 @@ public class InstructorBusinessRules : BaseBusinessRules
         );
         await InstructorShouldExistWhenSelected(instructor);
     }
+    public async Task CheckIfInstructorNotExists(string userName, string email)
+    {
+        var isExists = await _instructorRepository.GetAsync(x => x.UserName == userName || x.Email == email);
+        if (isExists is not null) throw new BusinessException(InstructorsBusinessMessages.InstructorExists);
+    }
 }

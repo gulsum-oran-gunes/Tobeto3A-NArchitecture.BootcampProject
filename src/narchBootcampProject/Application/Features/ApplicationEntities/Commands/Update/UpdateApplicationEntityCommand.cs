@@ -59,6 +59,8 @@ public class UpdateApplicationEntityCommand
             );
             await _applicationEntityBusinessRules.ApplicationEntityShouldExistWhenSelected(applicationEntity);
             applicationEntity = _mapper.Map(request, applicationEntity);
+            await _applicationEntityBusinessRules.CheckIfBootcampExists(request.BootcampId);
+            await _applicationEntityBusinessRules.CheckIfApplicationStateExist(request.ApplicationStateId);
 
             await _applicationEntityRepository.UpdateAsync(applicationEntity!);
 
