@@ -20,7 +20,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Features.Bootcamps.Queries.GetListDynamic;
-public class GetListBootcampDynamicQuery: IRequest<GetListResponse<GetListBootcampListItemDto>>, ISecuredRequest/*, ICachableRequest*/
+public class GetListBootcampDynamicQuery: IRequest<GetListResponse<GetListBootcampListItemDto>>/*, ISecuredRequest, ICachableRequest*/
 
 {
     public PageRequest PageRequest { get; set; }
