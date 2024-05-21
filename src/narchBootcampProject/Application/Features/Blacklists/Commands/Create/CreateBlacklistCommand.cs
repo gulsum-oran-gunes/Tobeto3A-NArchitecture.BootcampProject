@@ -49,7 +49,8 @@ public class CreateBlacklistCommand
         public async Task<CreatedBlacklistResponse> Handle(CreateBlacklistCommand request, CancellationToken cancellationToken)
         {
             Blacklist blacklist = _mapper.Map<Blacklist>(request);
-
+            await _blacklistBusinessRules.CheckIfApplicantIdExists(request.ApplicantId);
+            await _blacklistBusinessRules.ChechIfReasonNull(request.Reason);
             await _blacklistRepository.AddAsync(blacklist);
 
             CreatedBlacklistResponse response = _mapper.Map<CreatedBlacklistResponse>(blacklist);

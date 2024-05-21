@@ -68,8 +68,8 @@ public class CreateApplicantCommand
                     PasswordSalt = passwordSalt,
                 };
 
+            await _applicantBusinessRules.CheckIfApplicantExists(applicant.UserName, applicant.Email);
             await _applicantRepository.AddAsync(applicant);
-
             CreatedApplicantResponse response = _mapper.Map<CreatedApplicantResponse>(applicant);
             return response;
         }

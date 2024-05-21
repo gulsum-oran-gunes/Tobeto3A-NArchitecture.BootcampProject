@@ -54,7 +54,7 @@ public class CreateEmployeeCommand
         public async Task<CreatedEmployeeResponse> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
             Employee employee = _mapper.Map<Employee>(request);
-
+            await _employeeBusinessRules.CheckIfEmployeeNotExists(request.UserName, request.Email);
             await _employeeRepository.AddAsync(employee);
 
             CreatedEmployeeResponse response = _mapper.Map<CreatedEmployeeResponse>(employee);
