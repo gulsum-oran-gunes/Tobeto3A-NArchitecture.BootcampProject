@@ -17,4 +17,5 @@ public class GetByIdBootcampResponse : IResponse
     public DateTime EndDate { get; set; }
     public string Detail { get; set; }
     public DateTime Deadline { get; set; }
+    public bool? IfApplicantApplied { get; set; }
 }

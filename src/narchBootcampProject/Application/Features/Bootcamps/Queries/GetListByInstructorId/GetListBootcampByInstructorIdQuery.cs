@@ -40,6 +40,7 @@ public class GetListBootcampByInstructorIdQuery : IRequest<GetListResponse<GetLi
         )
         {
             IPaginate<Bootcamp> bootcamps = await _bootcampRepository.GetListAsync(
+                orderBy: query => query.OrderByDescending(b => b.Deadline),
                 predicate: x => x.InstructorId == request.InstructorId,
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,

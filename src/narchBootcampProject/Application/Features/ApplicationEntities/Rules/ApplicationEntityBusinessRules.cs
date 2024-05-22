@@ -4,6 +4,7 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
+using System.Threading;
 
 namespace Application.Features.ApplicationEntities.Rules;
 
@@ -45,4 +46,18 @@ public class ApplicationEntityBusinessRules : BaseBusinessRules
         );
         await ApplicationEntityShouldExistWhenSelected(applicationEntity);
     }
+
+    public bool IfApplicantApplied( int? bootcampId,Guid? applicantId)
+    {
+        var application = _applicationEntityRepository.Get(
+            predicate: abc => abc.ApplicantId == applicantId && abc.BootcampId == bootcampId,
+            enableTracking: false
+        );
+
+        return application != null;
+
+        // Eðer ilgili kayýt varsa true, yoksa false dön.
+        //Detail sayfasýnda o kullanýcý baþvurabilir mi kontrol etmek için
+    }
+
 }

@@ -41,10 +41,12 @@ public class GetListBootcampQuery : IRequest<GetListResponse<GetListBootcampList
         ) 
         {
             IPaginate<Bootcamp> bootcamps = await _bootcampRepository.GetListAsync(
+                orderBy: query => query.OrderByDescending(b => b.Deadline),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken,
                 include: p => p.Include(x => x.Instructor).Include(p => p.BootcampState).Include(p => p.BootcampImages)
+               
             );
 
             GetListResponse<GetListBootcampListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampListItemDto>>(

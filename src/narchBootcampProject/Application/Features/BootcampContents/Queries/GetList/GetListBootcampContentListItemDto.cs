@@ -10,6 +10,7 @@ public class GetListBootcampContentListItemDto : IDto
     public string? VideoUrl { get; set; }
     public string? Content { get; set; }
     public bool? HasApplicantBootcampContent { get; set; }
-   
+    public bool? IfApplicantPassed { get; set; }
+
 
 }

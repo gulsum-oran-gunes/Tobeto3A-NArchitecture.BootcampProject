@@ -12,14 +12,19 @@ public class BootcampContentBusinessRules : BaseBusinessRules
     private readonly IBootcampContentRepository _bootcampContentRepository;
     private readonly ILocalizationService _localizationService;
     private readonly IApplicantBootcampContentRepository _applicantBootcampContentRepository;
+    private readonly ICertificateRepository _certificateRepository;
+    
 
     public BootcampContentBusinessRules(IBootcampContentRepository bootcampContentRepository,
         ILocalizationService localizationService,
-        IApplicantBootcampContentRepository applicantBootcampContentRepository)
+        IApplicantBootcampContentRepository applicantBootcampContentRepository,
+        ICertificateRepository certificateRepository)
     {
         _bootcampContentRepository = bootcampContentRepository;
         _localizationService = localizationService;
         _applicantBootcampContentRepository = applicantBootcampContentRepository;
+        _certificateRepository = certificateRepository;
+       
     }
 
     private async Task throwBusinessException(string messageKey)
@@ -51,7 +56,22 @@ public class BootcampContentBusinessRules : BaseBusinessRules
             enableTracking: false
         );
 
-        // Eðer ilgili kayýt varsa true, yoksa false dön
-        return applicantBootcampContent != null;
+        return applicantBootcampContent != null; 
+
+        // Eðer ilgili kayýt varsa true, yoksa false dön.
+        // Content sayfasýnda kullanýcý içeriði izledim iþaretlemiþ mi bunu kontrol etmek ve checkboxu dolu getirmek için
     }
+
+    public bool IfApplicantPassed(Guid? applicantId, int? bootcampId)
+    {
+        var certificate = _certificateRepository.Any(
+            predicate: abc => abc.ApplicantId == applicantId && abc.BootcampId == bootcampId,
+            enableTracking: false
+        );
+
+        return certificate;
+
+    }
+
+
 }

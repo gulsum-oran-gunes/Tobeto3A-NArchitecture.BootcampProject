@@ -23,6 +23,7 @@ public class QuizConfiguration : IEntityTypeConfiguration<Quiz>
         builder.HasOne(x => x.Applicant);
         builder.HasOne(x => x.Bootcamp);
         builder.HasMany(x => x.QuizQuestions);
+        builder.HasOne(x => x.Result);
 
         builder.HasQueryFilter(q => !q.DeletedDate.HasValue);
     }
