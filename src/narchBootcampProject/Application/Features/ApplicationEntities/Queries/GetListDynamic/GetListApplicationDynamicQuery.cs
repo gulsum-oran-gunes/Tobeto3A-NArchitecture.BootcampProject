@@ -59,6 +59,7 @@ public class GetListApplicationDynamicQuery: IRequest<GetListResponse<GetListApp
                 .Include(x => x.Bootcamp).ThenInclude(x => x.BootcampImages)
                 .Include(x => x.Bootcamp).ThenInclude(x => x.Instructor)
                 .Include(x => x.Bootcamp).ThenInclude(x => x.BootcampState)
+                
             
                 
                 );

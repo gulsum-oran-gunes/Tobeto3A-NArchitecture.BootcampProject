@@ -29,8 +29,8 @@ public class MappingProfiles : Profile
         .ForMember(q => q.InstructorLastName, opt => opt.MapFrom(q => q.Bootcamp.Instructor.LastName))
         .ForMember(q => q.BootcampStateId, opt => opt.MapFrom(q => q.Bootcamp.BootcampStateId))
         .ForMember(q => q.BootcampImageId, opt => opt.MapFrom(q => q.Bootcamp.BootcampImages.FirstOrDefault().Id))
-        .ForMember(q => q.BootcampImagePath, opt => opt.MapFrom(q => q.Bootcamp.BootcampImages.FirstOrDefault().ImagePath));
-       
+        .ForMember(q => q.BootcampImagePath, opt => opt.MapFrom(q => q.Bootcamp.BootcampImages.FirstOrDefault().ImagePath))
+        .ForMember(q => q.BootcampEndDate, opt => opt.MapFrom(q => q.Bootcamp.EndDate));
 
 
 

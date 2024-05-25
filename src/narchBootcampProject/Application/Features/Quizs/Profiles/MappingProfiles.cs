@@ -17,7 +17,7 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Quiz, CreateQuizCommand>().ReverseMap();
-        CreateMap<Quiz, CreatedQuizResponse>().ReverseMap();
+        CreateMap<Quiz, CreatedQuizResponse>().ForMember(q => q.BootcampName, opt => opt.MapFrom(q => q.Bootcamp.Name));
         CreateMap<Quiz, UpdateQuizCommand>().ReverseMap();
         CreateMap<Quiz, UpdatedQuizResponse>().ReverseMap();
         CreateMap<Quiz, DeleteQuizCommand>().ReverseMap();

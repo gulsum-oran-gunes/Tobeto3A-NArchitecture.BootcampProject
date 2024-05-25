@@ -41,6 +41,7 @@ public class CreateQuizCommand
         private readonly IQuestionRepository _questionRepository;
         private readonly IQuestionService _questionService;
         private readonly IQuizQuestionRepository _quizQuestionRepository;
+        private readonly IBootcampRepository _bootcampRepository;
 
         public CreateQuizCommandHandler(
             IMapper mapper,
@@ -48,7 +49,8 @@ public class CreateQuizCommand
             QuizBusinessRules quizBusinessRules,
             IQuestionRepository questionRepository,
             IQuestionService questionService,
-            IQuizQuestionRepository quizQuestionRepository
+            IQuizQuestionRepository quizQuestionRepository,
+            IBootcampRepository bootcampRepository
         )
         {
             _mapper = mapper;
@@ -57,13 +59,16 @@ public class CreateQuizCommand
             _questionRepository = questionRepository;
             _questionService = questionService;
             _quizQuestionRepository = quizQuestionRepository;
+            _bootcampRepository = bootcampRepository;
         }
 
         public async Task<CreatedQuizResponse> Handle(CreateQuizCommand request, CancellationToken cancellationToken)
         {
             List<Question> randomQuestions = await _questionService.GetRandomQuestionsByBootcampIdAsync(request.BootcampId);
+            var bootcamp = await _bootcampRepository.GetAsync(b => b.Id == request.BootcampId);
             Quiz quiz = _mapper.Map<Quiz>(request);
-
+           
+           
             await _quizRepository.AddAsync(quiz);
 
             foreach (var question in randomQuestions)
@@ -73,7 +78,7 @@ public class CreateQuizCommand
             }
 
             CreatedQuizResponse response = _mapper.Map<CreatedQuizResponse>(quiz);
-
+            response.BootcampName = bootcamp.Name;
             response.QuestionResponses = randomQuestions
                 .Select(q =>
                 {
