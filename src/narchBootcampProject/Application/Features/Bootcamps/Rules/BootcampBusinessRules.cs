@@ -39,4 +39,19 @@ public class BootcampBusinessRules : BaseBusinessRules
         );
         await BootcampShouldExistWhenSelected(bootcamp);
     }
+    public async Task CheckIfBootcampNameExists(string bootcampName)
+    {
+        var isExists = await _bootcampRepository.GetAsync(bootcamp => bootcamp.Name == bootcampName);
+        if (isExists is not null) throw new BusinessException(BootcampsBusinessMessages.BootcampNameExists);
+    }
+    public async Task CheckIfBootcampStateIdExists(int bootcampStateId)
+    {
+        var isExists = await _bootcampRepository.GetAsync(x => x.BootcampStateId == bootcampStateId);
+        if (isExists is  null) throw new BusinessException(BootcampsBusinessMessages.BootcampStateExists);
+    }
+    public async Task CheckIfInstructorIdExists(Guid instructorId)
+    {
+        var isExists = await _bootcampRepository.GetAsync(x => x.InstructorId == instructorId);
+        if (isExists is null) throw new BusinessException(BootcampsBusinessMessages.InstructorExists); 
+    }
 }

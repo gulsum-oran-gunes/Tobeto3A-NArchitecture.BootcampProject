@@ -54,7 +54,10 @@ public class CreateApplicationEntityCommand
         )
         {
             ApplicationEntity applicationEntity = _mapper.Map<ApplicationEntity>(request);
-
+            await _applicationEntityBusinessRules.CheckIfApplicantBlacklist(request.ApplicantId);
+            await _applicationEntityBusinessRules.CheckIfApplicantApplicationExists(request.ApplicantId, request.BootcampId);
+            await _applicationEntityBusinessRules.CheckIfApplicantExists(request.ApplicantId);
+            await _applicationEntityBusinessRules.CheckIfBootcampExists(request.BootcampId);
             await _applicationEntityRepository.AddAsync(applicationEntity);
 
             CreatedApplicationEntityResponse response = _mapper.Map<CreatedApplicationEntityResponse>(applicationEntity);

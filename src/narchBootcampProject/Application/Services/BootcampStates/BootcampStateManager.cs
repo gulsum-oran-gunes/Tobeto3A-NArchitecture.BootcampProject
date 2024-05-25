@@ -65,6 +65,8 @@ public class BootcampStateManager : IBootcampStateService
 
     public async Task<BootcampState> AddAsync(BootcampState bootcampState)
     {
+        await _bootcampStateBusinessRules.BootcampStateShouldExistWhenSelected( bootcampState );
+        await _bootcampStateBusinessRules.CheckIfBootcampStateNameExists(bootcampState.Name);
         BootcampState addedBootcampState = await _bootcampStateRepository.AddAsync(bootcampState);
 
         return addedBootcampState;

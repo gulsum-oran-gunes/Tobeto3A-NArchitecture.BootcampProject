@@ -54,10 +54,10 @@ public class CreateInstructorCommand
 
         public async Task<CreatedInstructorResponse> Handle(CreateInstructorCommand request, CancellationToken cancellationToken)
         {
+
             Instructor instructor = _mapper.Map<Instructor>(request);
-
+            await _instructorBusinessRules.CheckIfInstructorNotExists(instructor.UserName, instructor.Email);
             await _instructorRepository.AddAsync(instructor);
-
             CreatedInstructorResponse response = _mapper.Map<CreatedInstructorResponse>(instructor);
             return response;
         }

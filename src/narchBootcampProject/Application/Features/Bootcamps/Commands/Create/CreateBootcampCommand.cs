@@ -53,7 +53,9 @@ public class CreateBootcampCommand
         public async Task<CreatedBootcampResponse> Handle(CreateBootcampCommand request, CancellationToken cancellationToken)
         {
             Bootcamp bootcamp = _mapper.Map<Bootcamp>(request);
-
+            await _bootcampBusinessRules.CheckIfBootcampNameExists(request.Name.TrimStart());
+            await _bootcampBusinessRules.CheckIfBootcampStateIdExists(request.BootcampStateId);
+            await _bootcampBusinessRules.CheckIfInstructorIdExists(request.InstructorId);
             await _bootcampRepository.AddAsync(bootcamp);
 
             CreatedBootcampResponse response = _mapper.Map<CreatedBootcampResponse>(bootcamp);
