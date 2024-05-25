@@ -11,6 +11,7 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
+using System.Threading;
 
 namespace Application.Features.ApplicationEntities.Rules;
 
@@ -60,6 +61,22 @@ public class ApplicationEntityBusinessRules : BaseBusinessRules
         );
         await ApplicationEntityShouldExistWhenSelected(applicationEntity);
     }
+
+
+    public bool IfApplicantApplied( int? bootcampId,Guid? applicantId)
+    {
+        var application = _applicationEntityRepository.Get(
+            predicate: abc => abc.ApplicantId == applicantId && abc.BootcampId == bootcampId,
+            enableTracking: false
+        );
+
+        return application != null;
+
+        // E�er ilgili kay�t varsa true, yoksa false d�n.
+        //Detail sayfas�nda o kullan�c� ba�vurabilir mi kontrol etmek i�in
+    }
+
+
     public async Task CheckIfApplicantBlacklist(Guid applicantId)
     {
         var applicant = await _blacklistService.GetAsync(predicate: a => a.ApplicantId == applicantId);
@@ -85,4 +102,5 @@ public class ApplicationEntityBusinessRules : BaseBusinessRules
         var isExists = await _applicationEntityRepository.GetAsync(a => a.ApplicantId == applicantId && a.BootcampId == bootcampId);
         if (isExists is not null) throw new BusinessException(ApplicationEntitiesBusinessMessages.ApplicantApplicationExists);
     }
+
 }

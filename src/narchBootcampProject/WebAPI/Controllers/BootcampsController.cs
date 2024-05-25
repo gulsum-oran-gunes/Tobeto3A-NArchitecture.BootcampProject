@@ -1,3 +1,4 @@
+using Application.Features.BootcampContents.Queries.GetList;
 using Application.Features.Bootcamps.Commands.Create;
 using Application.Features.Bootcamps.Commands.Delete;
 using Application.Features.Bootcamps.Commands.Update;
@@ -43,9 +44,10 @@ public class BootcampsController : BaseController
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] int id, Guid? applicantId)
     {
-        GetByIdBootcampResponse response = await Mediator.Send(new GetByIdBootcampQuery { Id = id });
+        GetByIdBootcampQuery getByIdBootcampQuery = new() { Id=id, ApplicantId = applicantId };
+        GetByIdBootcampResponse response = await Mediator.Send(getByIdBootcampQuery);
         return Ok(response);
     }
 

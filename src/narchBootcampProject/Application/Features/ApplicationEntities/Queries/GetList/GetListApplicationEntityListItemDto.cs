@@ -14,6 +14,7 @@ public class GetListApplicationEntityListItemDto : IDto
    
     public int BootcampImageId { get; set; }
     public string BootcampImagePath { get; set; }
+    public DateTime BootcampEndDate { get; set; }
     public Guid  InstructorId { get; set; }
     public string InstructorFirstName { get; set; }
     public string InstructorLastName { get; set; }

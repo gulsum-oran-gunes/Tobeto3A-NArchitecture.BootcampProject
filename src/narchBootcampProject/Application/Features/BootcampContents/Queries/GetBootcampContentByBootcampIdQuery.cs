@@ -60,12 +60,20 @@ public class GetBootcampContentByBootcampIdQuery : IRequest<GetListResponse<GetL
 
            
 
-            GetListResponse<GetListBootcampContentListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampContentListItemDto>>(
-                bootcampContents,
+            GetListResponse<GetListBootcampContentListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampContentListItemDto>>
+                (bootcampContents,
                  options => options.AfterMap((source, destination) => destination.Items.ToList().ForEach(
-                 item => item.HasApplicantBootcampContent =
-                    _bootcampContentBusinessRules.HasApplicantBootcampContent(request.ApplicantId, item.Id)))
-            );
+                 item => 
+                 {
+                     item.HasApplicantBootcampContent =
+                    _bootcampContentBusinessRules.HasApplicantBootcampContent(request.ApplicantId, item.Id);
+                     item.IfApplicantPassed=
+                   _bootcampContentBusinessRules.IfApplicantPassed(request.ApplicantId, item.BootcampId);
+                 }
+
+                    ))
+           
+                 );
 
             return response;
 

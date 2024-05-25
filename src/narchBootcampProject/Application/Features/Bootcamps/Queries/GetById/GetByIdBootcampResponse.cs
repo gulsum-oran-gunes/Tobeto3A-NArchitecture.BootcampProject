@@ -9,6 +9,8 @@ public class GetByIdBootcampResponse : IResponse
     public Guid InstructorId { get; set; }
     public string InstructorFirstName { get; set; }
     public string InstructorLastName { get; set; }
+    public int InstructorImageId { get; set; }
+    public string InstructorImagePath { get; set; }
     public int BootcampStateId { get; set; }
     public string BootcampStateName { get; set; }
     public int BootcampImageId { get; set; }
@@ -17,4 +19,5 @@ public class GetByIdBootcampResponse : IResponse
     public DateTime EndDate { get; set; }
     public string Detail { get; set; }
     public DateTime Deadline { get; set; }
+    public bool? IfApplicantApplied { get; set; }
 }

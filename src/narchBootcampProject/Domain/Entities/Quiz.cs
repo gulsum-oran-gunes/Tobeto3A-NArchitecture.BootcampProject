@@ -16,6 +16,7 @@ public class Quiz : Entity<int>
     public DateTime? EndTime { get; set; }
     public virtual Applicant? Applicant { get; set; }
     public virtual Bootcamp? Bootcamp { get; set; }
+    public virtual Result? Result { get; set; }
 
     [JsonIgnore]
     public ICollection<QuizQuestion> QuizQuestions { get; set; }

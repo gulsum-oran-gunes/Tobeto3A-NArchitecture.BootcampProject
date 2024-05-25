@@ -50,8 +50,15 @@ public class GetListBootcampContentQuery : IRequest<GetListResponse<GetListBootc
            
             GetListResponse<GetListBootcampContentListItemDto> response = _mapper.Map<GetListResponse<GetListBootcampContentListItemDto>>(bootcampContents,
                  options => options.AfterMap((source, destination) => destination.Items.ToList().ForEach(
-                    item => item.HasApplicantBootcampContent =
-                        _bootcampContentBusinessRules.HasApplicantBootcampContent(request.ApplicantId, item.Id)))
+                    item =>
+                    {
+                        item.HasApplicantBootcampContent =
+                        _bootcampContentBusinessRules.HasApplicantBootcampContent(request.ApplicantId, item.Id);
+                        item.IfApplicantPassed =
+                        _bootcampContentBusinessRules.IfApplicantPassed(request.ApplicantId, item.BootcampId);
+
+                    }   
+                        ))
                  );
             return response;
 

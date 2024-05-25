@@ -43,6 +43,7 @@ public class GetListApplicationEntityQuery
         )
         {
             IPaginate<ApplicationEntity> applicationEntities = await _applicationEntityRepository.GetListAsync(
+                orderBy: query => query.OrderByDescending(b => b.CreatedDate),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken,
