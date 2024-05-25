@@ -62,6 +62,7 @@ public class ApplicantRegisterCommand : IRequest<RegisteredResponse>, ICacheRemo
         public async Task<RegisteredResponse> Handle(ApplicantRegisterCommand request, CancellationToken cancellationToken)
         {
             await _authBusinessRules.UserEmailShouldBeNotExists(request.ApplicantRegisterDto.Email);
+            await _authBusinessRules.UserNameShouldBeNotExists(request.ApplicantRegisterDto.UserName);
 
             HashingHelper.CreatePasswordHash(
                 request.ApplicantRegisterDto.Password,
