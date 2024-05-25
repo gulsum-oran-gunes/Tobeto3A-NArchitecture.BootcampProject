@@ -12,6 +12,7 @@ public static class AuthMessages
     public const string UserHaveAlreadyAAuthenticator = "UserHaveAlreadyAAuthenticator";
     public const string RefreshDontExists = "RefreshDontExists";
     public const string InvalidRefreshToken = "InvalidRefreshToken";
-    public const string UserMailAlreadyExists = "UserMailAlreadyExists";
+    public const string UserMailAlreadyExists = "Bu mail adresi mevcut. Lütfen farklý bir mail giriniz.";
+    public const string UserNameAlreadyExists = "Bu kullanýcý adý mevcut. Lütfen farklý bir kullanýcý adý giriniz.";
     public const string PasswordDontMatch = "PasswordDontMatch";
 }
