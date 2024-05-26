@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Services.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Security.Extensions;
 
@@ -6,6 +7,8 @@ namespace WebAPI.Controllers;
 
 public class BaseController : ControllerBase
 {
+  
+
     protected IMediator Mediator =>
         _mediator ??=
             HttpContext.RequestServices.GetService<IMediator>()
@@ -27,4 +30,6 @@ public class BaseController : ControllerBase
         var userId = Guid.Parse(HttpContext.User.GetUserId().ToString()!);
         return userId;
     }
+
+   
 }

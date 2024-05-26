@@ -11,7 +11,8 @@ public class ApplicantConfiguration : IEntityTypeConfiguration<Applicant>
         builder.ToTable("Applicants");
 
         builder.Property(a => a.Id).HasColumnName("Id").IsRequired();
-        builder.Property(a => a.About).HasColumnName("About").IsRequired(false); ;
+        builder.Property(a => a.About).HasColumnName("About").IsRequired(false);
+        builder.Property(a => a.EmailVerified).HasColumnName("EmailVerified").IsRequired(false);
         builder.Property(a => a.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(a => a.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(a => a.DeletedDate).HasColumnName("DeletedDate");
