@@ -11,6 +11,7 @@ namespace Domain.Entities;
 public class Applicant : User
 {
     public string? About { get; set; }
+    public bool? EmailVerified { get; set; }
 
     public ICollection<ApplicationEntity> ApplicationEntities { get; set; }
     public ICollection<Quiz> Quizzes { get; set; }
@@ -26,8 +27,9 @@ public class Applicant : User
         Certificates = new HashSet<Certificate>();
     }
 
-    public Applicant(string? about)
+    public Applicant(string? about, bool? emailVerified)
     {
         About = about;
+        EmailVerified = emailVerified;
     }
 }

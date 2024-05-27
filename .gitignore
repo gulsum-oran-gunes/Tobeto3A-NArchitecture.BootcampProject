@@ -400,3 +400,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# password and account hiding
+appsettings.json
+appsettings.Development.json
+appsettings.Staging.json

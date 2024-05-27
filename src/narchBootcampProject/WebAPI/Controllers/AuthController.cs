@@ -7,12 +7,17 @@ using Application.Features.Auth.Commands.Register.Applicant;
 using Application.Features.Auth.Commands.Register.Employee;
 using Application.Features.Auth.Commands.Register.Instructor;
 using Application.Features.Auth.Commands.RevokeToken;
+using Application.Features.Auth.Commands.VerifyEmail;
 using Application.Features.Auth.Commands.VerifyEmailAuthenticator;
 using Application.Features.Auth.Commands.VerifyOtpAuthenticator;
+using Application.Services.Repositories;
 using Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NArchitecture.Core.Application.Dtos;
+using NArchitecture.Core.Security.Entities;
+
 
 namespace WebAPI.Controllers;
 
@@ -21,13 +26,14 @@ namespace WebAPI.Controllers;
 public class AuthController : BaseController
 {
     private readonly WebApiConfiguration _configuration;
-
-    public AuthController(IConfiguration configuration)
+    private readonly IEmailAuthenticatorRepository _emailAuthenticatorRepository;
+    public AuthController(IConfiguration configuration, IEmailAuthenticatorRepository emailAuthenticatorRepository)
     {
         const string configurationSection = "WebAPIConfiguration";
         _configuration =
             configuration.GetSection(configurationSection).Get<WebApiConfiguration>()
             ?? throw new NullReferenceException($"\"{configurationSection}\" section cannot found in configuration.");
+        _emailAuthenticatorRepository = emailAuthenticatorRepository;
     }
 
     [HttpPost("Login")]
@@ -129,6 +135,44 @@ public class AuthController : BaseController
 
         await Mediator.Send(verifyEmailAuthenticatorCommand);
         return Ok();
+    }
+
+    [HttpPost("VerifyEmail")]
+    public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmailRequest request)
+    {
+        //var userId = Guid.Empty;
+        //try
+        //{
+        //    userId = getUserId();
+        //}
+        //catch (Exception)
+        //{
+        //    return BadRequest("User is not authenticated.");
+        //}
+
+        VerifyEmailCommand verifyEmailCommand = new VerifyEmailCommand
+        {
+            ActivationCode = request.AuthenticatorCode, 
+            UserId = getUserIdFromEmailActivation(request.AuthenticatorCode)
+        };
+
+        await Mediator.Send(verifyEmailCommand);
+        return Ok();
+    }
+
+    protected Guid getUserIdFromEmailActivation(string activationCode)
+    {
+        var emailAuthenticator = _emailAuthenticatorRepository.GetAsync(e => e.ActivationKey == activationCode).Result;
+        if (emailAuthenticator != null)
+        {
+            return emailAuthenticator.UserId;
+        }
+        else
+        {
+            // Eğer doğrulama koduyla eşleşen bir kullanıcı yoksa, uygun bir işlem gerçekleştirin
+            // Örneğin, bir hata işleme mekanizması veya uygun bir geri dönüş değeri olabilir
+            throw new Exception("Invalid activation code");
+        }
     }
 
     private string getRefreshTokenFromCookies()
