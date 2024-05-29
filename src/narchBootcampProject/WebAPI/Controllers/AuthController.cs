@@ -152,7 +152,7 @@ public class AuthController : BaseController
 
         VerifyEmailCommand verifyEmailCommand = new VerifyEmailCommand
         {
-            ActivationCode = request.AuthenticatorCode, 
+            ActivationCode = request.AuthenticatorCode,
             UserId = getUserIdFromEmailActivation(request.AuthenticatorCode)
         };
 
@@ -182,7 +182,7 @@ public class AuthController : BaseController
 
     private void setRefreshTokenToCookie(RefreshToken refreshToken)
     {
-        CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7) };
+        CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7), Secure = true, SameSite = SameSiteMode.None };
         Response.Cookies.Append(key: "refreshToken", refreshToken.Token, cookieOptions);
     }
 }

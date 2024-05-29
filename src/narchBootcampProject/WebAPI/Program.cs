@@ -14,6 +14,7 @@ using NArchitecture.Core.Security.JWT;
 using NArchitecture.Core.Security.WebApi.Swagger.Extensions;
 using Persistence;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using WebApi.Exception;
 using WebAPI;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -96,9 +97,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-//if (app.Environment.IsProduction())
-//    app.ConfigureCustomExceptionMiddleware();
-
 
 app.UseDbMigrationApplier();
 
@@ -120,5 +118,7 @@ app.UseCors(opt =>
 );
 
 app.UseResponseLocalization();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
