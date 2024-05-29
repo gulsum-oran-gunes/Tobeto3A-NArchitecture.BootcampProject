@@ -81,7 +81,7 @@ public class InstructorRegisterCommand : IRequest<RegisteredResponse>, ICacheRem
                     PasswordSalt = passwordSalt,
                 };
             Domain.Entities.Instructor createdInstructor = await _instructorRepository.AddAsync(newInstructor);
-            UserOperationClaim newUserOperationClaim = new() { UserId = createdInstructor.Id, OperationClaimId = 116 };
+            UserOperationClaim newUserOperationClaim = new() { UserId = createdInstructor.Id, OperationClaimId = 157 };
 
             await _userOperationClaimRepository.AddAsync(newUserOperationClaim);
 
