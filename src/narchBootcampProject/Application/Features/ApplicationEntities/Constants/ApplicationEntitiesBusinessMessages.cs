@@ -6,9 +6,9 @@ public static class ApplicationEntitiesBusinessMessages
 
     public const string ApplicationEntityNotExists = "ApplicationEntityNotExists";
 
-    public const string ApplicantInBlacklist = "Applicant in blacklist";
+    public const string ApplicantInBlacklist = "Aday, kara listede olduðu için baþvuru yapamaz.";
 
-    public const string ApplicantApplicationExists = "Applicant cannot create an application because they are already did";
+    public const string ApplicantApplicationExists = "Zaten baþvuru yaptýnýz. Tekrar baþvuramazsýnýz.";
 
     public const string ApplicationStateIdNotExists = "Application state not exists.";
 

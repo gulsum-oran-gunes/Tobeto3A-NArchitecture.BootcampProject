@@ -15,13 +15,15 @@ public class BlacklistBusinessRules : BaseBusinessRules
     private readonly IBlacklistRepository _blacklistRepository;
     private readonly ILocalizationService _localizationService;
     private readonly ApplicantBusinessRules _applicantBusinessRules;
+    private readonly IApplicantService _applicantService;   
 
     public BlacklistBusinessRules(IBlacklistRepository blacklistRepository, ApplicantBusinessRules applicantBusinessRules,
-        ILocalizationService localizationService)
+        ILocalizationService localizationService, IApplicantService applicantService)
     {
         _blacklistRepository = blacklistRepository;
         _localizationService = localizationService;
         _applicantBusinessRules = _applicantBusinessRules;
+        _applicantService = applicantService;
     }
 
     private async Task throwBusinessException(string messageKey)
@@ -47,7 +49,7 @@ public class BlacklistBusinessRules : BaseBusinessRules
     }
     public async Task CheckIfApplicantIdExists(Guid applicantId)
     {
-        var isExists = await _blacklistRepository.GetAsync(applicant => applicant.ApplicantId == applicantId);
+        var isExists = await _applicantService.GetAsync(applicant => applicant.Id == applicantId);
         if (isExists is null) throw new BusinessException(ApplicantsBusinessMessages.ApplicantNotExists);
     }
     public async Task ChechIfReasonNull(string reason)

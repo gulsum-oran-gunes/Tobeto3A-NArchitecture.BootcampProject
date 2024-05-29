@@ -51,9 +51,8 @@ public class CreateApplicationStateCommand
         )
         {
             ApplicationState applicationState = _mapper.Map<ApplicationState>(request);
-
-            await _applicationStateRepository.AddAsync(applicationState);
             await _applicationStateBusinessRules.CheckIfApplicationStateNameExists(request.Name);
+            await _applicationStateRepository.AddAsync(applicationState);
             CreatedApplicationStateResponse response = _mapper.Map<CreatedApplicationStateResponse>(applicationState);
             return response;
         }
