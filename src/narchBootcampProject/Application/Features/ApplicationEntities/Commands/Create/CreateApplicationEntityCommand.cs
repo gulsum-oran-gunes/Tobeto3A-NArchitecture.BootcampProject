@@ -14,7 +14,7 @@ namespace Application.Features.ApplicationEntities.Commands.Create;
 
 public class CreateApplicationEntityCommand
     : IRequest<CreatedApplicationEntityResponse>,
-        //ISecuredRequest,
+        ISecuredRequest,
         ICacheRemoverRequest,
         ILoggableRequest,
         ITransactionalRequest
@@ -22,9 +22,7 @@ public class CreateApplicationEntityCommand
     
     public Guid ApplicantId { get; set; }
     public int BootcampId { get; set; }
-
-
-    //public string[] Roles => [Admin, Write, ApplicationEntitiesOperationClaims.Create];
+    public string[] Roles => [Admin, Write, ApplicationEntitiesOperationClaims.Create, Student];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

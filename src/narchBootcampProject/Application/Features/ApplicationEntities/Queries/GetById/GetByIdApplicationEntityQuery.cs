@@ -13,7 +13,7 @@ public class GetByIdApplicationEntityQuery : IRequest<GetByIdApplicationEntityRe
 {
     public int Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    public string[] Roles => [Admin, Read, Student];
 
     public class GetByIdApplicationEntityQueryHandler
         : IRequestHandler<GetByIdApplicationEntityQuery, GetByIdApplicationEntityResponse>

@@ -17,7 +17,7 @@ namespace Application.Features.Quizs.Commands.Create;
 
 public class CreateQuizCommand
     : IRequest<CreatedQuizResponse>,
-        //ISecuredRequest,
+        ISecuredRequest,
         ICacheRemoverRequest,
         ILoggableRequest,
         ITransactionalRequest
@@ -27,7 +27,7 @@ public class CreateQuizCommand
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
 
-    public string[] Roles => [Admin, Write, QuizsOperationClaims.Create];
+    public string[] Roles => [Admin, Write, QuizsOperationClaims.Create, Student];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

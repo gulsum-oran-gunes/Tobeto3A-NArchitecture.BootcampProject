@@ -14,11 +14,11 @@ using static Application.Features.ApplicationEntities.Constants.ApplicationEntit
 namespace Application.Features.ApplicationEntities.Queries.GetList;
 
 public class GetListApplicationEntityQuery
-    : IRequest<GetListResponse<GetListApplicationEntityListItemDto>>/*,ISecuredRequest*/,ICachableRequest
+    : IRequest<GetListResponse<GetListApplicationEntityListItemDto>>,ISecuredRequest,ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
-    //public string[] Roles => [Admin, Read];
+    public string[] Roles => [Admin, Read, Student];
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListApplicationEntities({PageRequest.PageIndex},{PageRequest.PageSize})";

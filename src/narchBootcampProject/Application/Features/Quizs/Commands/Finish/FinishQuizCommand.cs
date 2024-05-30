@@ -17,14 +17,14 @@ namespace Application.Features.Quizs.Commands.Finish;
 
 public class FinishQuizCommand
     : IRequest<FinishedQuizResponse>,
-        //ISecuredRequest,
+        ISecuredRequest,
         ICacheRemoverRequest,
         ILoggableRequest,
         ITransactionalRequest
 {
     public int QuizId { get; set; }
     public Dictionary<int, string> Answers { get; set; }
-    public string[] Roles => [Admin, Write, QuizsOperationClaims.Finish];
+    public string[] Roles => [Admin, Write, QuizsOperationClaims.Finish, Student];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

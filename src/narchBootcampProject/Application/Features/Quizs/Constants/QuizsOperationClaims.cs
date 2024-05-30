@@ -16,4 +16,6 @@ public static class QuizsOperationClaims
     public const string Update = $"{_section}.Update";
     public const string Delete = $"{_section}.Delete";
     public const string Finish = $"{_section}.Finish";
+    public const string Student = $"{_section}.Student";
+
 }

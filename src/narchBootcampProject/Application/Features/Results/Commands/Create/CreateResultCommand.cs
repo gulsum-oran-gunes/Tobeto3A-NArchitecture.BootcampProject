@@ -23,7 +23,7 @@ public class CreateResultCommand
     public int WrongAnswers { get; set; }
     public int CorrectAnswers { get; set; }
 
-    public string[] Roles => [Admin, Write, ResultsOperationClaims.Create];
+    public string[] Roles => [Admin, Write, ResultsOperationClaims.Create, Student];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

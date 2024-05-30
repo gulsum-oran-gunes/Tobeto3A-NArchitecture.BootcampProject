@@ -12,12 +12,12 @@ using static Application.Features.ApplicantBootcampContents.Constants.ApplicantB
 
 namespace Application.Features.ApplicantBootcampContents.Commands.Create;
 
-public class CreateApplicantBootcampContentCommand : IRequest<CreatedApplicantBootcampContentResponse>/*, ISecuredRequest*/, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateApplicantBootcampContentCommand : IRequest<CreatedApplicantBootcampContentResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid ApplicantId { get; set; }
     public int BootcampContentId { get; set; }
 
-    public string[] Roles => [Admin, Write, ApplicantBootcampContentsOperationClaims.Create];
+    public string[] Roles => [Admin, Write, ApplicantBootcampContentsOperationClaims.Create, Student];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

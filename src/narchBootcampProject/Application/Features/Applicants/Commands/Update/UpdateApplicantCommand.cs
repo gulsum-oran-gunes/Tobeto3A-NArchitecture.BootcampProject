@@ -15,7 +15,7 @@ namespace Application.Features.Applicants.Commands.Update;
 
 public class UpdateApplicantCommand
     : IRequest<UpdatedApplicantResponse>,
-        //ISecuredRequest,
+        ISecuredRequest,
         ICacheRemoverRequest,
         ILoggableRequest,
         ITransactionalRequest
@@ -31,7 +31,7 @@ public class UpdateApplicantCommand
 
    
 
-    //public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Update];
+    public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Update, Student];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }
