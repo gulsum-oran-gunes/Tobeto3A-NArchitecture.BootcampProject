@@ -59,11 +59,11 @@ public class CertificateDoc : IDocument
                         .AlignTop()
                         .TranslateX(100)
                         .TranslateY(-50)
-                        .Text(_certificate.Applicant.FirstName + " " + _certificate.Applicant.LastName)
+                        .Text(_certificate.Applicant.FirstName.ToUpper() + " " + _certificate.Applicant.LastName.ToUpper())
                         .Italic()
                         .LineHeight(1.5f)
                         .Bold()
-                        .FontColor("#000000").FontSize(128);
+                        .FontColor("#000000").FontSize(112);
 
                     column.Item()
                         .Height(baseHeight / 2 - 50)
