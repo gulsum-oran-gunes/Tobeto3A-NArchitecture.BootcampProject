@@ -94,7 +94,7 @@ public class QuestionManager : IQuestionService
         var randomQuestions = availableQuestions
             .Where(q => q.BootcampId == bootcampId)
             .OrderBy(q => random.Next())
-            .Take(2)
+            .Take(5)
             .ToList();
         return randomQuestions;
     }
