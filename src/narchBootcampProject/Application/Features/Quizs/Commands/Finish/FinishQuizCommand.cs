@@ -79,7 +79,7 @@ public class FinishQuizCommand
                     throw new Exception("Girdi�iniz soru idleri bu quizdeki sorular ile uyu�muyor.");
                 }
             }
-            bool isPassed = correctAnswersCount > 4;
+            bool isPassed = correctAnswersCount >= 4;
             
 
             Result result = new Result
