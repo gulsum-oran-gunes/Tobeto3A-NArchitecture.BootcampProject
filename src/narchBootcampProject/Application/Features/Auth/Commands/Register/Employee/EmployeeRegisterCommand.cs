@@ -81,7 +81,7 @@ public class EmployeeRegisterCommand : IRequest<RegisteredResponse> , ICacheRemo
                     PasswordSalt = passwordSalt,
                 };
             Domain.Entities.Employee createdEmployee = await _employeeRepository.AddAsync(newEmployee);
-            UserOperationClaim newUserOperationClaim = new() { UserId = createdEmployee.Id, OperationClaimId = 115 };
+            UserOperationClaim newUserOperationClaim = new() { UserId = createdEmployee.Id, OperationClaimId = 158 };
 
             await _userOperationClaimRepository.AddAsync(newUserOperationClaim);
 
