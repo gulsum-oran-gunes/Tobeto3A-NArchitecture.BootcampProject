@@ -6,5 +6,5 @@ public static class ApplicationStatesBusinessMessages
 
     public const string ApplicationStateNotExists = "ApplicationStateNotExists";
    
-    public const string ApplicationStateExists = "ApplicationStateExists";
+    public const string ApplicationStateExists = "Boyle bir basvuru durumu mevcut";
 }

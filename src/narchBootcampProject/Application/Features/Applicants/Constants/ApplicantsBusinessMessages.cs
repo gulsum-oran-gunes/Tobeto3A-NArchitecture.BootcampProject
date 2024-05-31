@@ -11,7 +11,7 @@ public static class ApplicantsBusinessMessages
 
     public const string ApplicantNotExists = "ApplicantNotExists";
 
-    public const string ApplicantExists = "Applicant is already exists";
+    public const string ApplicantExists = "Aday mevcut";
 
     public const string ApplicantIdNotExists = "Applicant id is not exists";
 }
